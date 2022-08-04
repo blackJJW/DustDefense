@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -56,5 +58,30 @@ public class BoardController {
 		}
 
 		return "redirect:/board/list.do";
+	}
+	@GetMapping(value = "/board/list.do")
+	public String openBoardList(Model model) {
+		List<BoardDTO> boardList = boardService.getBoardList();
+		model.addAttribute("boardList", boardList);
+
+		return "board/list";
+	}
+	@GetMapping(value = "/board/view.do")
+	public String openBoardDetail(@RequestParam(value = "idx", required = false) Long idx, Model model) {
+		if (idx == null) {
+			// TODO => 올바르지 않은 접근이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+			return "redirect:/board/list.do";
+		}
+
+		BoardDTO board = boardService.getBoardDetail(idx);
+		//사실은 아래는 필요가 없을 수 있지만, 그럼에도 조건문을 걸어주는 게 좋다.
+		if (board == null){
+			// TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+			return "redirect:/board/list.do";
+		}
+		//if문에 return이 있으므로 아래는 사실상 else와 같다고 볼 수 있다.
+		model.addAttribute("board", board);
+
+		return "board/view";
 	}
 }
