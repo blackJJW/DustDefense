@@ -9,24 +9,27 @@ import org.springframework.context.ApplicationContext;
 
 @SpringBootTest
 class DustDefenseApplicationTests {
-
 	@Autowired
 	private ApplicationContext context;
-
+	
 	@Autowired
 	private SqlSessionFactory sessionFactory;
+
 	
+
 	@Test
 	void contextLoads() {
 	}
+
+	
 	@Test
 	public void testByApplicationContext() {
 		try {
-			System.out.println("=========================");
+			System.out.println("==============================");
 			System.out.println(context.getBean("sqlSessionFactory"));
-			System.out.println("=========================");
+			System.out.println("==============================");
+		} catch(Exception e) {
 
-		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

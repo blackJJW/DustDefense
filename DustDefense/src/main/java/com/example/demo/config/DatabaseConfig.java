@@ -15,6 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+
 @Configuration//스프링은 @Configuration이 지정된 클래스를 자바 기반의 설정 파일로 인식
 //해당 클래스에서 참조할 properties 파일의 위치를 지정
 @PropertySource("classpath:/application.properties")
@@ -24,17 +25,21 @@ public class DatabaseConfig {
 	
 	@Bean
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
+
     public HikariConfig hikariConfig() { //히카리CP 객체를 생성
+
         return new HikariConfig();
     }
 
     @Bean
     public DataSource dataSource() { //커넥션 풀을 지원하기 위한 인터페이스
+
         return new HikariDataSource(hikariConfig());
     }
 	
 	@Bean
     public SqlSessionFactory sqlSessionFactory() throws Exception {
+
 		//SqlSessionFactoryBean은 마이바티스와 스프링의 연동 모듈로 사용
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
@@ -47,11 +52,13 @@ public class DatabaseConfig {
 		factoryBean.setTypeAliasesPackage("com.example.demo.domain"); //xml파일에서 풀패키지명을 안쓰도록
 		factoryBean.setConfiguration(mybatisConfig()); //아래 메소드 호출
 		return factoryBean.getObject();
+
     }
 
     @Bean
     public SqlSessionTemplate sqlSession() throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory());
+
     //SqlsessionTemplate은 SqlSessionFactory를 통해 생성되고
 	//SQL의 실행에 필요한 모든 메서드를 갖는 객체
     //SQLSessionTemplate는 마이바티스 스프링 연동 모듈의 핵심.
@@ -69,4 +76,5 @@ public class DatabaseConfig {
   		return new org.apache.ibatis.session.Configuration();
   	}
 }
+
 
