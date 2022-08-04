@@ -10,7 +10,7 @@ public interface BoardService {
 
 	public BoardDTO getBoardDetail(Long idx);
 
-	public boolean deleteBoard(Long idx);
+	//public boolean deleteBoard(Long idx);
 
 	public List<BoardDTO> getBoardList();
 }

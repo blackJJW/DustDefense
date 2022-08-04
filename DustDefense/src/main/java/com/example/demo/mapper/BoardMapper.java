@@ -23,12 +23,19 @@ public interface BoardMapper {
 	//WHERE 조건으로 idx를 사용해서 특정 게시글을 조회.
 	public BoardDTO selectBoardDetail(Long idx);
 
+	//게시글을 수정하는 UPDATE쿼리를 호출하는 메서드
 	public int updateBoard(BoardDTO params);
 
+	//게시글을 삭제하는 DELETE쿼리를 호출하는 메서드
+	//delete_yn 컬럼 상태가 'N'이면 노출되지 않게끔 구현
+	//실제로 지우는 게 아니다.
 	public int deleteBoard(Long idx);
 
+	//게시글 목록을 조회하는 SELECT 쿼리를 호출하는 메서드
 	public List<BoardDTO> selectBoardList();
 
+	//delete_yn컬럼이 'N'인 게시글의 개수를 조회하는 SELECT 쿼리를 호출하는 메서드,
+	//페이징 처리때 필요
 	public int selectBoardTotalCount();
 }
 
