@@ -26,8 +26,8 @@
 			</form>
 
 			<div class="btn_wrap text-center">
-				<a th:href="@{/list.do}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
-				<a th:href="@{/write.do( idx=${board.idx} )}" class="btn btn-primary waves-effect waves-light">수정하기</a>
+				<a th:href="@{list.do}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
+				<a th:href="@{write.do( idx=${board.idx} )}" class="btn btn-primary waves-effect waves-light">수정하기</a>
 				<button type="button" class="btn btn-danger waves-effect waves-light" th:onclick="deleteBoard([[ ${board.idx} ]])">삭제하기</button>
 			</div>																		<!-- 자바스크립트에서 타임리프 문법 -->
 		</div>																			<!-- th:onclick속성을 사용해서 deleteBoard 함수의 인자로 게시글 번호(idx) -->	
