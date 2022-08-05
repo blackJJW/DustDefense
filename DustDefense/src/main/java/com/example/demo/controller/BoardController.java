@@ -84,4 +84,8 @@ public class BoardController {
 
 		return "board/view";
 	}
+	 @GetMapping("/")
+	 public String root() {
+		 return "redirect:/board/list.do";
+	 }
 }
