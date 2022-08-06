@@ -1,12 +1,52 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<body th:fragment="main-body">
-		<div class="fixed-navbar">
+		<!-- <div class="fixed-navbar">
 			<div class="pull-left">
 				<h1 class="page-title">Board</h1>
 			</div>
-		</div>
+		</ div>-->
 		<!-- /.fixed-navbar -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <div class="container-fluid">
+		    <a class="navbar-brand" href="#">Fresh Air</a>
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+		      <ul class="navbar-nav">
+		        <li class="nav-item">
+		          <a class="nav-link active" aria-current="page" href="#">사이트 소개</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">분석 & 예측</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">정보</a>
+		        </li>
+		        <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            커뮤니티
+		          </a>
+		          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		            <li><a class="dropdown-item" href="#">자유게시판</a></li>
+		            <li><a class="dropdown-item" href="#">홈페이지 개선의견</a></li>
+		            <li><a class="dropdown-item" href="#">Something else here</a></li>
+		          </ul>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">로그인</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">회원가입</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">마이페이지</a>
+		        </li>
+		      </ul>
+		    </div>
+		  </div>
+		</nav>
 
 		<div id="wrapper">
 			<div class="main-content">
@@ -21,7 +61,8 @@
 
 							</div>
 							<!-- //.clearfix -->
-
+							<!-- layout:fragment="content" 부분만 작성해주는 것이다. -->
+							<!-- list나, view.html 같은 파일을 만든다는 것이다. -->
 							<th:block layout:fragment="content"></th:block>
 
 							<th:block layout:fragment="paging"></th:block>

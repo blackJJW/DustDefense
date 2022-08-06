@@ -23,7 +23,7 @@ public class BoardController {
 	//글쓰기 화면 요청!
 	//get요청이기 때문에 그럴 확률이 매우 높다.
 	//글쓰기 화면으로 이동
-	@GetMapping(value = "/board/write.do")
+	@GetMapping(value = "/board/write.do") //@GetMapping("/board/write.do")도 가능
 	public String openBoardWrite(@RequestParam(value = "idx", required = false) Long idx, Model model) {
 
 		//요청과 똑같은 걸로 하면 리턴타입이 void
