@@ -25,6 +25,8 @@ dependencies {
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' /* Thymeleaf Layout */
 	implementation 'org.springframework.boot:spring-boot-starter-validation' /*유효성검증 */
+	implementation 'org.springframework.boot:spring-boot-starter-security' /* 스프링 시큐리티*/
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5' /*스프링 시큐리티 + 타임리프 */
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
