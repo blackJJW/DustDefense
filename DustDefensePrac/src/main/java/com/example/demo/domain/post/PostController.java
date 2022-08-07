@@ -1,5 +1,7 @@
 package com.example.demo.domain.post;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,9 +74,12 @@ public class PostController {
 
     // 게시글 삭제
     @PostMapping("/post/delete.do")
-    public String deletePost(@RequestParam final Long id, Model model) {
+    public String deletePost(@RequestParam final Long id,
+                             @RequestParam final Map<String, Object> queryParams,
+                             Model model) {
+
         postService.deletePost(id);
-        MessageDto message = new MessageDto("게시글 삭제가 완료되었습니다.", "/post/list.do", RequestMethod.GET, null);
+        MessageDto message = new MessageDto("게시글 삭제가 완료되었습니다.", "/post/list.do", RequestMethod.GET, queryParams);
         return showMessageAndRedirect(message, model);
     }
 
