@@ -11,3 +11,8 @@
 2022-08-05 14:55:23,415 [pool-16-thread-2] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: LayoutDialect.xml
 2022-08-05 14:55:23,453 [pool-16-thread-4] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Java8Time.xml
 2022-08-05 14:55:23,615 [pool-16-thread-2] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Standard-Dialect.xml
+2022-08-07 13:39:20,873 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-08-07 22:29:06,314 [Text Viewer Hover Presenter] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Scanning for dialect help files on project dependencies
+2022-08-07 22:29:07,997 [pool-11-thread-2] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: LayoutDialect.xml
+2022-08-07 22:29:07,997 [pool-11-thread-1] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Java8Time.xml
+2022-08-07 22:29:08,429 [pool-11-thread-1] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Standard-Dialect.xml

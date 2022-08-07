@@ -1,15 +1,16 @@
 package com.example.demo.domain.post;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.common.dto.MessageDto;
+import com.example.demo.common.dto.SearchDto;
+import com.example.demo.paging.PagingResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,9 +40,9 @@ public class PostController {
 
     // 게시글 리스트 페이지
     @GetMapping("/post/list.do")
-    public String openPostList(Model model) {
-        List<PostResponse> posts = postService.findAllPost();
-        model.addAttribute("posts", posts);
+    public String openPostList(@ModelAttribute("params") final SearchDto params, Model model) {
+        PagingResponse<PostResponse> response = postService.findAllPost(params);
+        model.addAttribute("response", response);
         return "post/list";
     }
 
