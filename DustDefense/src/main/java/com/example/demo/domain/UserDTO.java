@@ -2,6 +2,8 @@ package com.example.demo.domain;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -21,6 +23,7 @@ public class UserDTO {
 	
 	private String password;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime signupDate;
 	
 	private String passwordQuestionCode;
