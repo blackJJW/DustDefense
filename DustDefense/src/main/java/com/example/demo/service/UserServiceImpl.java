@@ -18,6 +18,11 @@ public class UserServiceImpl implements UserService{
 		userMapper.memberJoin(user);
 		
 	}
+	@Override
+	public int idCheck(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.idCheck(id);
+	}
 
 	
 	

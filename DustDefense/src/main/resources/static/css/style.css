@@ -1392,6 +1392,17 @@ textarea.form-control {
 .input-group-btn > .btn span {
   font-size: 14px;
 }
+/*아이디 중복검사*/
+/* 중복아이디 존재하지 않는경우 */
+.id_input_re_1{
+	color : green;
+	display : none;
+}
+/* 중복아이디 존재하는 경우 */
+.id_input_re_2{
+	color : red;
+	display : none;
+}
 /*---------------------------------------------------------------------*/
 
 .form-group .form-control {height: auto;}

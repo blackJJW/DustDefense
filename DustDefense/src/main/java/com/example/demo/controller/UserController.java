@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.domain.BoardDTO;
 import com.example.demo.domain.UserDTO;
 import com.example.demo.service.UserService;
 
@@ -48,6 +48,28 @@ public class UserController {
 	public void loginGET() {
 		
 		logger.info("로그인 페이지 진입");
+		
+	}
+	// 아이디 중복 검사
+	@PostMapping(value = "user/userIdChk")
+	@ResponseBody //이게 없으면 500번대 에러 //새로고침 없이 비동기통신을 하려면 body에 데이터를 담아줘야한다.
+	public String userIdChkPOST(String id) throws Exception{
+		
+		logger.info("memberIdChk() 진입");
+		
+		int result = userService.idCheck(id);
+		
+		logger.info("결과값 = " + result);
+		
+		if(result != 0) {
+			
+			return "fail";	// 중복 아이디가 존재
+			
+		} else {
+			
+			return "success";	// 중복 아이디 x
+			
+		}	
 		
 	}
 }

@@ -9,7 +9,7 @@
 		<!-- /.fixed-navbar -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
-		    <a class="navbar-brand" href="#">Fresh Air</a>
+		    <a th:href="@{/board/list.do}" class="navbar-brand" >Fresh Air</a>
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 		      <span class="navbar-toggler-icon"></span>
 		    </button>
@@ -34,9 +34,13 @@
 		            <li><a class="dropdown-item" href="#">Something else here</a></li>
 		          </ul>
 		        </li>
-		        <li class="nav-item">
+		        <!-- <li class="nav-item">
 		          <a class="nav-link" href="#">로그인</a>
-		        </li>
+		        </li> -->
+		        <li class="nav-item">
+		        	<!-- 현재 board/가 디폴트로 들어가고 있기 때문에 /user/join.do로 해줘야 한다. -->
+					<a th:href="@{/user/join.do}" class="nav-link">로그인</a>
+				</li>
 		        <li class="nav-item">
 		          <a class="nav-link" href="#">회원가입</a>
 		        </li>
@@ -85,6 +89,7 @@
 		</div>
 		<!-- /#wrapper -->
 
+		
 		<script th:src="@{/scripts/jquery.min.js}"></script>
 		
 		<script th:src="@{/plugin/bootstrap/js/bootstrap.min.js}"></script>
@@ -92,7 +97,11 @@
 
 		<script th:src="@{/scripts/main.js}"></script>
 		<script th:src="@{/scripts/common.js}"></script>
-
-		<th:block layout:fragment="script"></th:block>
+		<script th:src="@{/scripts/common.js}"></script>
+    	<!-- 적용방법 2 : cdn -->
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    
+    	<th:block layout:fragment="script"></th:block>
+		
 	</body>
 </html> 

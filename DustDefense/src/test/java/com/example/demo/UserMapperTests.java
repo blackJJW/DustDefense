@@ -31,4 +31,13 @@ public class UserMapperTests {
 		userMapper.memberJoin(member);			//쿼리 메서드 실행
 		
 	}
+	
+	// 아이디 중복검사
+	@Test
+	public void idChk() throws Exception{
+		String id = "admin";	// 존재하는 아이디
+		String id2 = "test123";	// 존재하지 않는 아이디
+		userMapper.idCheck(id);
+		userMapper.idCheck(id2);
+	}
 }
