@@ -72,4 +72,27 @@ public class UserController {
 		}	
 		
 	}
+	// 닉네임 중복 검사
+	@PostMapping(value = "user/userNicknameChk")
+	@ResponseBody //이게 없으면 500번대 에러 //새로고침 없이 비동기통신을 하려면 body에 데이터를 담아줘야한다.
+	public String nicknameChkPOST(String nickname) throws Exception{
+		
+		logger.info("nicknameChk() 진입");
+		
+		int result = userService.nicknameCheck(nickname);
+		
+		logger.info("결과값 = " + result);
+		
+		if(result != 0) {
+			
+			return "fail";	// 중복 닉네임이 존재
+			
+		} else {
+			
+			return "success";	// 중복 닉네임이 x
+			
+		}	
+		
+		
+	}
 }

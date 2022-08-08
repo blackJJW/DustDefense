@@ -11,7 +11,7 @@
 		        <!-- <div th:replace="form_errors :: formErrorsFragment"></div> -->
 		        <div class="mb-3">
 		            <label for="id" class="form-label">사용자ID</label>
-		            <input type="text" th:field="*{id}" class="form-control">
+		            <input type="text" th:field="*{id}" class="form-control" id="duplicate-id">
 		            <span class="id_input_re_1">사용 가능한 아이디입니다.</span>
 					<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
 		        </div>
@@ -25,7 +25,9 @@
 		        </div>
 		        <div class="mb-3">
 		            <label for="nickname" class="form-label">닉네임</label>
-		            <input type="text" th:field="*{nickname}" class="form-control">
+		            <input type="text" th:field="*{nickname}" class="form-control" id="duplicate-nickname">
+		            <span class="nickname_input_re_1">사용 가능한 닉네임입니다.</span>
+					<span class="nickname_input_re_2">닉네임이 이미 존재합니다.</span>
 		        </div>
 		        <div class="mb-3">
 		            <label for="email" class="form-label">이메일</label>
@@ -160,10 +162,10 @@
 			
 			// 아이디 중복검사
 			// input에 변화가 감지되면 함수 호출 
-			$('.form-control').on("propertychange change keyup paste input", function(){
+			$('#duplicate-id').on("propertychange change keyup paste input", function(){
 
 				//console.log("keyup 테스트");
-				var id = $('.form-control').val();			// .id_input에 입력되는 값
+				var id = $('#duplicate-id').val();			// .id_input에 입력되는 값
 				var data = {id : id}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
 				
 				$.ajax({
@@ -181,7 +183,34 @@
 							}
 					}// success 종료
 				}); // ajax 종료
+				
+				
+			});// function 종료
+			// 닉네임 중복검사
+			// input에 변화가 감지되면 함수 호출 
+			$('#duplicate-nickname').on("propertychange change keyup paste input", function(){
 
+				//console.log("keyup 테스트");
+				var nickname = $('#duplicate-nickname').val();	// .id_input에 입력되는 값
+				var data = {nickname : nickname}			// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+				
+				$.ajax({
+					type : "post",
+					url : "/user/userNicknameChk",
+					data : data,
+					success : function(result){
+						 //console.log("성공 여부" + result);
+						 if(result != 'fail'){
+								$('.nickname_input_re_1').css("display","inline-block");
+								$('.nickname_input_re_2').css("display", "none");				
+							} else {
+								$('.nickname_input_re_2').css("display","inline-block");
+								$('.nickname_input_re_1').css("display", "none");				
+							}
+					}// success 종료
+				}); // ajax 종료
+				
+				
 			});// function 종료
 		</script>
 	</th:block>

@@ -35,9 +35,18 @@ public class UserMapperTests {
 	// 아이디 중복검사
 	@Test
 	public void idChk() throws Exception{
-		String id = "admin";	// 존재하는 아이디
+		String id = "test";	// 존재하는 아이디
 		String id2 = "test123";	// 존재하지 않는 아이디
 		userMapper.idCheck(id);
 		userMapper.idCheck(id2);
+	}
+	
+	// 닉네임 중복검사
+	@Test
+	public void nicknameCheck() throws Exception{
+		String nickname = "test1";	// 존재하는 닉네임
+		String nickname2 = "test123";	// 존재하지 않는 닉네임
+		userMapper.nicknameCheck(nickname);
+		userMapper.nicknameCheck(nickname2);
 	}
 }
