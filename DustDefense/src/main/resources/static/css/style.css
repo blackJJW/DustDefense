@@ -1413,7 +1413,22 @@ textarea.form-control {
 	color : red;
 	display : none;
 }
-
+/* 이메일 인증 코드 비활성화*/
+#mail_check_input_box_false{
+    background-color:#ebebe4;
+}
+/* 이메일 인증 코드 활성화*/ 
+#mail_check_input_box_true{
+    background-color:white;
+}
+/* 이메일 인증 코드가 맞을 경우*/
+.correct{
+    color : green;
+}
+/* 이메일 인증 코드가 틀릴 경우*/
+.incorrect{
+    color : red;
+}
 /*---------------------------------------------------------------------*/
 
 .form-group .form-control {height: auto;}
