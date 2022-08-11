@@ -7,14 +7,14 @@
 	  		values(
 	  		     #{id}
 	  		   , #{name}
-	  		   , #{authorityType}
+	  		   , '0'
 	  		   , #{nickname}
 	  		   , #{email}
 	  		   , #{password}
 	  		   , sysdate
 	  		   , #{passwordQuestionCode}
 	  		   , #{passwordQuestionAnswer}
-	  		   , #{validMember}
+	  		   , 'N'
 	
 	  		)
 	

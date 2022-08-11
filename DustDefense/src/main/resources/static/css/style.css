@@ -1429,6 +1429,44 @@ textarea.form-control {
 .incorrect{
     color : red;
 }
+
+/* 유효성 검사 문구 */
+ 
+.final_id_ck{
+    display: none;
+}
+.final_pw_ck{
+    display: none;
+}
+.final_pwck_ck{
+    display: none;
+}
+.final_name_ck{
+    display: none;
+}
+.final_email_ck{
+    display: none;
+}
+.final_nickname_ck{
+    display: none;
+}
+.final_pwqc_ck{
+	display: none;
+}
+.final_pwqc_Answer_ck{
+	display: none;
+}
+
+/* 비밀번호 확인 일치 유효성검사 */
+.pwck_input_re_1{
+        color : green;
+        display : none;    
+}
+.pwck_input_re_2{
+        color : red;
+        display : none;    
+}
+/* 이메일 전*/
 /*---------------------------------------------------------------------*/
 
 .form-group .form-control {height: auto;}

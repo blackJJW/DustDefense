@@ -5,36 +5,55 @@
 	</th:block>
 	
 
-	<th:block layout:fragment="content">
-		<div class="wrapper">
-			<form th:action="@{/user/join.do}" th:object="${join}" method="post">
+	<th:block layout:fragment="content">               <!-- th:onsubmit="return join(this);" -->
+		<div class="wrapper">                          <!-- onsubmit="join(this)" -->
+			<form id="join_form" th:action="@{/user/join.do}" th:object="${join}" method="post" th:onsubmit="return join(this);">
 		        <!-- <div th:replace="form_errors :: formErrorsFragment"></div> -->
 		        <div class="mb-3">
 		            <label for="id" class="form-label">사용자ID</label> <!-- class="form-control" -->
 		            <input type="text" th:field="*{id}" class="id_input" id="duplicate-id">
 		            <span class="id_input_re_1">사용 가능한 아이디입니다.</span>
 					<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
+					<span class="final_id_ck">아이디를 입력해주세요.</span>
+		        </div>
+		        <div class="mb-3">
+		            <label for="password" class="form-label">비밀번호</label>
+		            <input type="password" th:field="*{password}" class="pw_input"> 
+		            <span class="final_pw_ck">비밀번호를 입력해주세요.</span>
+		        </div>
+		        <div class="mb-3">
+		            <label for="password" class="form-label">비밀번호 확인</label>
+		            <input type="password" class="pwck_input">
+		            <span class="final_pwck_ck">비밀번호 확인을 입력해주세요.</span>
+		            <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
+                	<span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
 		        </div>
 		        <div class="mb-3">
 		            <label for="name" class="form-label">이름</label>
-		            <input type="text" th:field="*{name}" class="form-control">
+		            <input type="text" th:field="*{name}" class="name_input">
+		            <span class="final_name_ck">이름을 입력해주세요.</span>
 		        </div>
+		        <!-- 권한타입은 디폴트로 0 
 		        <div class="mb-3">
 		            <label for="authority_type" class="form-label">권한타입</label>
 		            <input type="text" th:field="*{authorityType}" class="form-control">
-		        </div>
+		        </div> -->
 		        <div class="mb-3">
 		            <label for="nickname" class="form-label">닉네임</label>
-		            <input type="text" th:field="*{nickname}" class="form-control" id="duplicate-nickname">
+		            <input type="text" th:field="*{nickname}" class="nickname_input" id="duplicate-nickname">
 		            <span class="nickname_input_re_1">사용 가능한 닉네임입니다.</span>
 					<span class="nickname_input_re_2">닉네임이 이미 존재합니다.</span>
+					<span class="final_nickname_ck">닉네임을 입력해주세요.</span>
 		        </div>
 		        <div class="mb-3">
 		            <label for="email" class="form-label">이메일</label>
-		            <input type="email" th:field="*{email}" class="form-control" id="email-auth">
+		            <input type="email" th:field="*{email}" class="email_input" id="email-auth">
+		            <span class="final_email_ck">이메일을 입력해주세요.</span>
+		            <span class="mail_input_box_warn"></span>
 		        </div>
 		        <div class="mail_check_wrap">
 					<div class="mail_check_input_box" id="mail_check_input_box_false">
+						<label for="email_check" class="form-label">이메일 인증번호</label>
 						<input class="mail_check_input" disabled="disabled">
 					</div>
 					<div class="mail_check_button">
@@ -43,14 +62,7 @@
 					<div class="clearfix"></div>
 					<span id="mail_check_input_box_warn"></span>
 				</div>
-		        <div class="mb-3">
-		            <label for="password" class="form-label">비밀번호</label>
-		            <input type="password" th:field="*{password}" class="pw_input"> 
-		        </div>
-		        <div class="mb-3">
-		            <label for="password" class="form-label">비밀번호 확인</label>
-		            <input type="password" class="pwck_input">
-		        </div>
+		        
 		        <div class="mb-3">
 		            <label for="password_question_code" class="form-label">비밀번호찾기질문</label>
 		            <select th:field="*{passwordQuestionCode}" class="pwqc_input">
@@ -58,109 +70,26 @@
 		            	<option th:each="passwordQuestionCode : ${passwordQuestionCodes}" th:value="${passwordQuestionCode.code}"
 		            			th:text="${passwordQuestionCode.displayName}">기억에 남는 추억의 장소는?</option>
 		            </select>
+		            <span class="final_pwqc_ck">비밀번호찾기 질문을 입력해주세요.</span>
 		        </div>
 		        <div class="mb-3">
-		            <label for="password_question_Answer" class="form-label">비밀번호찾기답</label>
-		            <input type="text" th:field="*{passwordQuestionAnswer}" class="form-control">
+		            <label for="password_question_Answer" class="form-label">비밀번호찾기질문의 답</label>
+		            <input type="text" th:field="*{passwordQuestionAnswer}" class="pwqc_Answer_input">
+		            <span class="final_pwqc_Answer_ck">비밀번호 찾기 질문에 대한 답을 입력해주세요.</span>
 		        </div>
 		        <!-- 가입일은 sysdate로 받는걸로 쿼리를 작성해서 입력 받을 필요가 없다. -->
 		        <!-- <div class="mb-3">
 		            <label for="signup_date" class="form-label">가입일</label>
 		            <input type="text" th:field="*{signupDate}" class="form-control">
 		        </div> -->
+		        <!-- 유효한 회원도 디폴트로 N을 넣는다.
 		        <div class="mb-3">
 		            <label for="valid_member" class="form-label">유효한회원</label>
 		            <input type="text" th:field="*{validMember}" class="form-control">
-		        </div>
-		        <button type="submit" class="btn btn-primary">회원가입</button>
+		        </div> -->
+		        <button type="submit" class="btn btn-primary" id="join_button">회원가입</button>
 		    </form>
-		<!-- <form id="join_form" method="post">
-		<div class="wrap">
-				<div class="subjecet">
-					<span>회원가입</span>
-				</div>
-				<div class="id_wrap">
-					<div class="id_name">아이디</div>
-					<div class="id_input_box">
-						<input class="id_input" name="id">
-					</div>
-				</div>
-				<div class="user_wrap">
-					<div class="user_name">이름</div>
-					<div class="user_input_box">
-						<input class="user_input" name="name">
-					</div>
-				</div>
-				<div class="authorityType_wrap">
-					<div class="authorityType_name">권한유형</div>
-					<div class="authorityType_input_box">
-						<input class="authorityType_input" name="authorityType">
-					</div>
-				</div>
-				<div class="nickname_wrap">
-					<div class="nickname_name">닉네임</div>
-					<div class="nickname_input_box">
-						<input class="nickname_input" name="nickname">
-					</div>
-				</div>
-				<div class="pw_wrap">
-					<div class="pw_name">비밀번호</div>
-					<div class="pw_input_box">
-						<input class="pw_input" name="password">
-					</div>
-				</div>
-				<div class="pwck_wrap">
-					<div class="pwck_name">비밀번호 확인</div>
-					<div class="pwck_input_box">
-						<input class="pwck_input">
-					</div>
-				</div>
-				
-				<div class="mail_wrap">
-					<div class="mail_name">이메일</div> 
-					<div class="mail_input_box">
-						<input class="mail_input" name="email">
-					</div>
-					<div class="mail_check_wrap">
-						<div class="mail_check_input_box">
-							<input class="mail_check_input">
-						</div>
-						<div class="mail_check_button">
-							<span>인증번호 전송</span>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-				
-				<div class="passwordQuestionCode_wrap">
-					<div class="passwordQuestionCode_name">비밀번호찾기질문</div>
-					<div class="passwordQuestionCode_input_box">
-						<input class="passwordQuestionCode_input" name="passwordQuestionCode">
-					</div>
-				</div>
-				<div class="passwordQuestionAnswer_wrap">
-					<div class="passwordQuestionAnswer_name">비밀번호찾기질문답</div>
-					<div class="passwordQuestionAnswer_input_box">
-						<input class="passwordQuestionAnswer_input" name="passwordQuestionAnswer">
-					</div>
-				</div>
-				<div class="signupDate_wrap">
-					<div class="signupDate_name">가입날짜</div>
-					<div class="signupDate_input_box">
-						<input class="signupDate_input" name="signupDate">
-					</div>
-				</div>
-				<div class="validMember_wrap">
-					<div class="validMember_name">유효한회원</div>
-					<div class="validMember_input_box">
-						<input class="validMember_input" name="validMember">
-					</div>
-				</div>
-				<div class="join_button_wrap">
-					<input type="button" class="join_button" value="가입하기">
-				</div>
-			</div>
-		</form> -->
+		
 		</div>
 	</th:block>	
 	<th:block layout:fragment="script">
@@ -175,24 +104,114 @@
 			 var pwckCheck = false;            // 비번 확인
 			 var pwckcorCheck = false;        // 비번 확인 일치 확인
 			 var nameCheck = false;            // 이름
-			 var mailCheck = false;            // 이메일
-			 var mailnumCheck = false;        // 이메일 인증번호 확인
-			 var addressCheck = false         // 주소
-			$(document).ready(function(){
+			 var emailCheck = false;            // 이메일
+			 var emailnumCheck = false;        // 이메일 인증번호 확인
+			 var nicknameCheck = false;       // 닉네임 
+			 var nicknameckCheck = false;     // 닉네임 중복검사
+			 var pwqcCheck = false;           // 비밀번호 찾기 질문
+			 var pwqcAnswerCheck = false;     // 비밀번호 찾기 질문 답
+			//$(document).ready(function(){
 				//회원가입 버튼(회원가입 기능 작동)
-				$(".join_button").click(function(){
-					
+				function join(form) {
 					/* 입력값 변수 */
 			        var id = $('.id_input').val();                 // id 입력란
 			        var pw = $('.pw_input').val();                // 비밀번호 입력란
 			        var pwck = $('.pwck_input').val();            // 비밀번호 확인 입력란
 			        var name = $('.user_input').val();            // 이름 입력란
-			        var mail = $('.mail_input').val();            // 이메일 입력란
-			        var addr = $('.address_input_3').val();        // 주소 입력란
-					/* $("#join_form").attr("action", "/user/join");
-					$("#join_form").submit(); */
-				});
-			});
+			        var nickname = $('.nickname_input').val();    // 닉네임 입력란
+			        var email = $('.email_input').val();            // 이메일 입력란
+					var pwqc = $('.pwqc_input').val();            // 비밀번호 찾기질문 입력(선택)란
+					var pwqcA = $('.pwqc_Answer_input').val();    // 비밀번호 찾기 질문의 답 입력 란
+					
+					console.log("")
+					 /* 아이디 유효성검사 */
+			        if(id == ""){
+			            $('.final_id_ck').css('display','block');
+			            idCheck = false;
+			        }else{
+			            $('.final_id_ck').css('display', 'none');
+			            idCheck = true;
+			        }
+					
+			        /* 비밀번호 유효성 검사 */
+			        if(pw == ""){
+			            $('.final_pw_ck').css('display','block');
+			            pwCheck = false;
+			        }else{
+			            $('.final_pw_ck').css('display', 'none');
+			            pwCheck = true;
+			        }
+			        
+			        /* 비밀번호 확인 유효성 검사 */
+			        if(pwck == ""){
+			            $('.final_pwck_ck').css('display','block');
+			            pwckCheck = false;
+			        }else{
+			        	//console.log(pwck);
+			            $('.final_pwck_ck').css('display', 'none');
+			            pwckCheck = true;
+			        }
+			        
+			        /* 이름 유효성 검사 */
+			        if(name == ""){
+			            $('.final_name_ck').css('display','block');
+			            nameCheck = false;
+			        }else{
+			            $('.final_name_ck').css('display', 'none');
+			            nameCheck = true;
+			        }
+			        
+			        /* 닉네임 유효성 검사 */
+			        if(nickname == ""){
+			        	$('.final_nickname_ck').css('display', 'block');
+			        	nicknameCheck = false;
+			        }else{
+			        	$('.final_name_ck').css('display', 'none');
+			        	nicknameCheck = true;
+			        }
+			        
+			        /* 이메일 유효성 검사 */
+			        if(email == ""){
+			            $('.final_email_ck').css('display','block');
+			            emailCheck = false;
+			        }else{
+			            $('.final_email_ck').css('display', 'none');
+			            emailCheck = true;
+			        }
+			        
+			        /* 비밀번호 찾기 질문 유효성 검사 */
+			        if(pwqc == "==비밀번호찾기질문선택=="){
+			            $('.final_pwqc_ck').css('display','block');
+			            pwqcCheck = false;
+			        }else{
+			            $('.final_pwqc_ck').css('display', 'none');
+			            pwqcCheck = true;
+			        }
+			        /* 비밀번호 찾기 질문의 답 유효성검사 */
+			        if(pwqcA == ""){
+			            $('.final_pwqc_Answer_ck').css('display','block');
+			            pwqcAnswerCheck = false;
+			        }else{
+			            $('.final_pwqc_Answer_ck').css('display', 'none');
+			            pwqcAnswerCheck = true;
+			        }
+			        //
+			        //
+			        //
+			        
+			        //
+			        //
+			        
+			        /* 최종 유효성 검사 */
+			        if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nicknameCheck&&nicknameckCheck&&nameCheck&&emailCheck&&emailnumCheck&&pwqcCheck&&pwqcAnswerCheck){
+		 				
+			        	$("#join_form").attr("action", "/user/join.do");
+						$("#join_form").submit();
+			        } 
+
+			        return false;
+				};
+			
 			
 			// 아이디 중복검사
 			// input에 변화가 감지되면 함수 호출 
@@ -210,10 +229,14 @@
 						 //console.log("성공 여부" + result);
 						 if(result != 'fail'){
 								$('.id_input_re_1').css("display","inline-block");
-								$('.id_input_re_2').css("display", "none");				
+								$('.id_input_re_2').css("display", "none");		
+								// 아이디 중복이 없는 경우
+								idckCheck = true;
 							} else {
 								$('.id_input_re_2').css("display","inline-block");
-								$('.id_input_re_1').css("display", "none");				
+								$('.id_input_re_1').css("display", "none");	
+								// 아이디 중복된 경우
+								idckCheck = false;
 							}
 					}// success 종료
 				}); // ajax 종료
@@ -236,10 +259,14 @@
 						 //console.log("성공 여부" + result);
 						 if(result != 'fail'){
 								$('.nickname_input_re_1').css("display","inline-block");
-								$('.nickname_input_re_2').css("display", "none");				
+								$('.nickname_input_re_2').css("display", "none");		
+								// 아이디 중복이 없는 경우
+								nicknameckCheck = true;
 							} else {
 								$('.nickname_input_re_2').css("display","inline-block");
-								$('.nickname_input_re_1').css("display", "none");				
+								$('.nickname_input_re_1').css("display", "none");	
+								// 아이디 중복된 경우
+								nicknameckCheck = false;
 							}
 					}// success 종료
 				}); // ajax 종료
@@ -251,8 +278,20 @@
 			$(".mail_check_button").click(function(){
 				var email = $("#email-auth").val();        // 입력한 이메일
 				var checkBox = $(".mail_check_input");        // 인증번호 입력란
-			    var boxWrap = $(".mail_check_input_box"); 
-				
+			    var boxWrap = $(".mail_check_input_box");   //인증번호 입력란
+			    var warnMsg = $(".mail_input_box_warn");    // 이메일 입력 경고글
+			    
+			    /* 이메일 형식 유효성 검사 */
+			    if(mailFormCheck(email)){
+			        warnMsg.html("이메일이 전송 되었습니다. 이메일을 확인해주세요.");
+			        warnMsg.css("display", "inline-block");
+			        warnMsg.css("color", "green");
+			    } else {
+			        warnMsg.html("올바르지 못한 이메일 형식입니다.");
+			        warnMsg.css("display", "inline-block");
+			        warnMsg.css("color", "red");
+			        return false;
+			    }
 				$.ajax({
 			        type:"GET",
 			        url:"mailCheck?email=" + email,
@@ -274,13 +313,41 @@
 				 
 				 if(inputCode == code){                            // 일치할 경우
 				        checkResult.html("인증번호가 일치합니다.");
-				        checkResult.attr("class", "correct");        
+				        checkResult.attr("class", "correct");   
+				        emailnumCheck = true;     
 			     } else {                                            // 일치하지 않을 경우
 			        checkResult.html("인증번호를 다시 확인해주세요.");
 			        checkResult.attr("class", "incorrect");
+			        emailnumCheck = false;   
 			     }    
 			    
 			});
+			
+			/* 비밀번호 확인 일치 유효성 검사 */
 			 
+			$('.pwck_input').on("propertychange change keyup paste input", function(){
+			        
+				var pw = $('.pw_input').val();
+			    var pwck = $('.pwck_input').val();
+			    $('.final_pwck_ck').css('display', 'none');
+			    
+			    if(pw == pwck){
+			        $('.pwck_input_re_1').css('display','block');
+			        $('.pwck_input_re_2').css('display','none');
+			        pwckcorCheck = true;
+			    }else{
+			        $('.pwck_input_re_1').css('display','none');
+			        $('.pwck_input_re_2').css('display','block');
+			        pwckcorCheck = false;
+			    }      
+			});    
+			
+			/* 입력 이메일 형식 유효성 검사 */
+			function mailFormCheck(email){
+				//이메일의 정규표현식
+			
+				var form = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+				return form.test(email);
+			}
 		</script>
 	</th:block>
