@@ -10,8 +10,8 @@
 			<form th:action="@{/user/join.do}" th:object="${join}" method="post">
 		        <!-- <div th:replace="form_errors :: formErrorsFragment"></div> -->
 		        <div class="mb-3">
-		            <label for="id" class="form-label">사용자ID</label>
-		            <input type="text" th:field="*{id}" class="form-control" id="duplicate-id">
+		            <label for="id" class="form-label">사용자ID</label> <!-- class="form-control" -->
+		            <input type="text" th:field="*{id}" class="id_input" id="duplicate-id">
 		            <span class="id_input_re_1">사용 가능한 아이디입니다.</span>
 					<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
 		        </div>
@@ -45,15 +45,19 @@
 				</div>
 		        <div class="mb-3">
 		            <label for="password" class="form-label">비밀번호</label>
-		            <input type="password" th:field="*{password}" class="form-control">
+		            <input type="password" th:field="*{password}" class="pw_input"> 
 		        </div>
-		        <!-- <div class="mb-3">
+		        <div class="mb-3">
 		            <label for="password" class="form-label">비밀번호 확인</label>
-		            <input type="password" th:field="*{password2}" class="form-control">
-		        </div> -->
+		            <input type="password" class="pwck_input">
+		        </div>
 		        <div class="mb-3">
 		            <label for="password_question_code" class="form-label">비밀번호찾기질문</label>
-		            <input type="text" th:field="*{passwordQuestionCode}" class="form-control">
+		            <select th:field="*{passwordQuestionCode}" class="pwqc_input">
+		            	<option value="">==비밀번호찾기질문선택==</option>
+		            	<option th:each="passwordQuestionCode : ${passwordQuestionCodes}" th:value="${passwordQuestionCode.code}"
+		            			th:text="${passwordQuestionCode.displayName}">기억에 남는 추억의 장소는?</option>
+		            </select>
 		        </div>
 		        <div class="mb-3">
 		            <label for="password_question_Answer" class="form-label">비밀번호찾기답</label>
@@ -164,11 +168,29 @@
 	
 			var code = "";                //이메일전송 인증번호 저장위한 코드
 		
+			/* 유효성 검사 통과유무 변수 */
+			 var idCheck = false;            // 아이디
+			 var idckCheck = false;            // 아이디 중복 검사
+			 var pwCheck = false;            // 비번
+			 var pwckCheck = false;            // 비번 확인
+			 var pwckcorCheck = false;        // 비번 확인 일치 확인
+			 var nameCheck = false;            // 이름
+			 var mailCheck = false;            // 이메일
+			 var mailnumCheck = false;        // 이메일 인증번호 확인
+			 var addressCheck = false         // 주소
 			$(document).ready(function(){
 				//회원가입 버튼(회원가입 기능 작동)
 				$(".join_button").click(function(){
-					$("#join_form").attr("action", "/user/join");
-					$("#join_form").submit();
+					
+					/* 입력값 변수 */
+			        var id = $('.id_input').val();                 // id 입력란
+			        var pw = $('.pw_input').val();                // 비밀번호 입력란
+			        var pwck = $('.pwck_input').val();            // 비밀번호 확인 입력란
+			        var name = $('.user_input').val();            // 이름 입력란
+			        var mail = $('.mail_input').val();            // 이메일 입력란
+			        var addr = $('.address_input_3').val();        // 주소 입력란
+					/* $("#join_form").attr("action", "/user/join");
+					$("#join_form").submit(); */
 				});
 			});
 			

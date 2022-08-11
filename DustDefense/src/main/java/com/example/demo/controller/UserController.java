@@ -1,20 +1,20 @@
 package com.example.demo.controller;
 
-import java.util.Random;
-
-import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.domain.PasswordQuestionCode;
 import com.example.demo.domain.UserDTO;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.UserService;
@@ -157,6 +157,23 @@ public class UserController {
         
         
         
+    }
+    
+    /* 비밀번호 찾기 질문 코드*/
+    @ModelAttribute("passwordQuestionCodes")
+    public List<PasswordQuestionCode> passwordQuestionCodes() {
+    	List<PasswordQuestionCode> passwordQuestionCodes = new ArrayList<>();
+    	passwordQuestionCodes.add(new PasswordQuestionCode("00001","기억에 남는 추억의 장소는?"));
+    	passwordQuestionCodes.add(new PasswordQuestionCode("00002","자신의 인생 좌우명은?"));
+    	passwordQuestionCodes.add(new PasswordQuestionCode("00003","자신의 보물 제 1호는?"));
+    	passwordQuestionCodes.add(new PasswordQuestionCode("00004","가장 기억에 남는 선생님 성함은?"));
+    	passwordQuestionCodes.add(new PasswordQuestionCode("00005","추억하고 싶은 날짜는?"));
+    	passwordQuestionCodes.add(new PasswordQuestionCode("00006","받았던 선물 중 기억에 남는 독특한 선물은?"));
+    	passwordQuestionCodes.add(new PasswordQuestionCode("00007","학창시절 가장 생각나는 친구 이름은?"));
+    	passwordQuestionCodes.add(new PasswordQuestionCode("00008","인상 깊게 읽은 책 제목은?"));
+    	passwordQuestionCodes.add(new PasswordQuestionCode("00009","존경하는 인물은?"));
+    	passwordQuestionCodes.add(new PasswordQuestionCode("00010","좋아하는 캐릭터는?"));
+    	return passwordQuestionCodes;
     }
     
 }
