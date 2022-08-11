@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class DustDefensePracApplication {
+public class DustDefensePrac2Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DustDefensePracApplication.class, args);
+		SpringApplication.run(DustDefensePrac2Application.class, args);
 	}
 
 }
