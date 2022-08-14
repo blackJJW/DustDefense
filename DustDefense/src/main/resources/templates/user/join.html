@@ -229,7 +229,7 @@
 					data : data,
 					success : function(result){
 						 //console.log("성공 여부" + result);
-						
+						 $('.final_id_ck').css('display', 'none');
 						 if(result != 'fail'){ 
 							 
 						 	if(form.test(id)){
@@ -271,6 +271,7 @@
 					url : "/user/userNicknameChk",
 					data : data,
 					success : function(result){
+						$('.final_nickname_ck').css('display', 'none');	
 						 //console.log("성공 여부" + result);
 						 if(result != 'fail'){
 							 if(form.test(nickname)){
@@ -379,6 +380,36 @@
 				return form.test(id);
 			
 			}
+			/* 비밀번호 입력시 비밀번호 입력하라는 문구 사라지도록 */ 
+			$('.pw_input').on("propertychange change keyup paste input", function(){
+			        
+				var pw = $('.pw_input').val();
+			    $('.final_pw_ck').css('display', 'none');    
+			}); 
+			/* 이름 입력시 이름 입력하라는 문구 사라지도록 */ 
+			$('.name_input').on("propertychange change keyup paste input", function(){
+			        
+				var name = $('.name_input').val();
+			    $('.final_name_ck').css('display', 'none');    
+			}); 
+			/* 이메일 입력시 이메일 입력하라는 문구 사라지도록 */ 
+			$('.email_input').on("propertychange change keyup paste input", function(){
+			        
+				var email = $('.email_input').val();
+			    $('.final_email_ck').css('display', 'none');    
+			}); 
+			/* 비밀번호찾기질문 선택시 선택하라는 문구 사라지도록 */ 
+			$('.pwqc_input').on("propertychange change keyup paste input", function(){
+			        
+				var pwqc = $('.pwqc_input').val();
+			    $('.final_pwqc_ck').css('display', 'none');    
+			});
+			/* 비밀번호찾기질문의 답 입력시 입력하라는 문구 사라지도록 */ 
+			$('.pwqc_Answer_input').on("propertychange change keyup paste input", function(){
+			        
+				var pwqcA = $('.pwqc_Answer_input').val();
+			    $('.final_pwqc_Answer_ck').css('display', 'none');    
+			});
 			
 		</script>
 	</th:block>
