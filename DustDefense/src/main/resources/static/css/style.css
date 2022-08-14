@@ -1434,27 +1434,35 @@ textarea.form-control {
  
 .final_id_ck{
     display: none;
+    color : red;
 }
 .final_pw_ck{
     display: none;
+    color : red;
 }
 .final_pwck_ck{
     display: none;
+    color : red;
 }
 .final_name_ck{
     display: none;
+    color : red;
 }
 .final_email_ck{
     display: none;
+    color : red;
 }
 .final_nickname_ck{
     display: none;
+    color : red;
 }
 .final_pwqc_ck{
 	display: none;
+	color : red;
 }
 .final_pwqc_Answer_ck{
 	display: none;
+	color : red;
 }
 
 /* 비밀번호 확인 일치 유효성검사 */
