@@ -9,16 +9,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.example.demo.login.LoginFailHandler;
+
 import lombok.extern.log4j.Log4j2;
 
 @Configuration
 @Log4j2
 public class SecurityConfig{
-
+	
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	@Bean
+    public LoginFailHandler loginFailHandler(){
+        return new LoginFailHandler();
+    }
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http)
@@ -26,12 +33,13 @@ public class SecurityConfig{
 		
 		http.authorizeHttpRequests()
 			.antMatchers("/", "/sample/all").permitAll()
-			.antMatchers("/sample/member").hasRole("USER")
-			.antMatchers("/sample/admin").hasRole("ADMIN")
-		.and()
-			.formLogin()
+			.antMatchers("/sample/member").hasAnyRole("USER", "ADMIN")
+			.antMatchers("/sample/admin").hasRole("ADMIN");
+		
+		http.formLogin()
 			.loginPage("/login")	// controller mapping
 			.loginProcessingUrl("/login_proc") // th:action="@{login_proc}"
+			.failureHandler(loginFailHandler())
 			.defaultSuccessUrl("/")
 			.permitAll();
 		

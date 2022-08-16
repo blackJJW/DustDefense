@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.domain.post.PostMapper">
+
+	<!-- tb_user 테이블 전체 컬럼 -->
+	<sql id="postColumns">
+		id,
+		name,
+		authority_type,
+		nickname,
+		email,
+		password,
+		signup_date,
+		password_question_code,
+		password_question_answer,
+		valid_member
+	</sql>
+	
+	<!-- 게시글 저장 -->
+	<insert id="save" parameterType="com.example.demo.domain.post.PostRequest">
+		INSERT INTO TB_USER (
+			<include refid="postColumns" />
+		) VALUES(
+			#{id},
+			kim,
+			#{authority_type},
+			#{nickname},
+			#{email},
+			1234,
+			NOW(),
+			1111,
+			나도몰라,
+			1
+		)
+	</insert>
+	
+	<!-- 게시글 상세정보 조회 -->
+	<select id="findById" parameterType="String" resultType="com.example.demo.domain.post.PostResponse">
+		SELECT
+			<include refid="postColumns" />
+		FROM
+			TB_USER
+		WHERE
+			id = ${value}
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="com.example.demo.domain.post.PostRequest">
+		UPDATE TB_USER
+		SET
+			authority_type = #{authority_type},
+			password = #{password},
+		WHERE
+			id = #{id}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteById" parameterType="String">
+		UPDATE TB_USER
+		SET
+			valid_member = 0
+		WHERE
+			id = #{id}
+	</delete>
+	
+	<!-- 게시글 리스트 조회 -->
+	<select id="findAll" resultType="com.example.demo.domain.post.PostResponse">
+		SELECT
+			<include refid="postColumns" />
+		FROM
+			TB_USER
+		WHERE
+			valid_member = 1
+		ORDER BY
+			id DESC
+	</select>
+</mapper>

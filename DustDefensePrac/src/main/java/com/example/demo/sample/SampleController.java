@@ -29,4 +29,9 @@ public class SampleController {
 	public void exAdmin() {
 		log.info("exAdmin..........");
 	}
+	
+	@GetMapping("/googleMapsSample")
+	public void googleMaps() {
+		log.info("googleMaps..........");
+	}
 }
