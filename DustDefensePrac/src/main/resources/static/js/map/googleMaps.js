@@ -7,39 +7,9 @@ function initMap() {
           zoom: 10
     });
     
-    initGallPeters();
-    map.mapTypes.set("gallPeters", gallPetersMapType);
-    map.setMapTypeId("gallPeters");
-    
-    // show the lat and lng under the mouse cursor.
-    const coordsDiv = document.getElementById("coords");
-    
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(coordsDiv);
-    map.addListener("mousemove", (event) => {
-		coordsDiv.textContent = 
-			"lat : " +
-			Math.round(event.latLng.lat()) +
-			", " +
-			"lng : " +
-			Math.round(event.latLng.lng());
-	});
-    
-    // Add some markers to the map.
-  	map.data.setStyle((feature) => {
-	   return {
-	     title: feature.getProperty("name"),
-	     optimized: false,
-	   };
-	 });
-	map.data.addGeoJson(cities);
-        
-}
+    const bikeLayer = new google.maps.BicyclingLayer();
 
-let gallPetersMapType;
-
-function initGallPeters(){
-	const GALL_PETERS_RANGE_X = 800;
-	const GALL_PETERS_RANGE_Y = 512;
+  	bikeLayer.setMap(map);
 }
 
 window.initMap = initMap;

@@ -34,4 +34,9 @@ public class SampleController {
 	public void googleMaps() {
 		log.info("googleMaps..........");
 	}
+	
+	@GetMapping("/kakaoMapsSample")
+	public void kakaoMaps() {
+		log.info("kakaoMaps..........");
+	}
 }
