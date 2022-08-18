@@ -51,3 +51,16 @@
 2022-08-16 09:24:37,071 [pool-10-thread-2] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Spring-Security-Dialect.xml
 2022-08-16 09:24:37,074 [pool-10-thread-1] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Java8Time.xml
 2022-08-16 09:24:37,101 [pool-10-thread-2] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Standard-Dialect.xml
+2022-08-17 09:15:11,505 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-08-17 12:13:49,845 [main] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Scanning for dialect help files on project dependencies
+2022-08-17 12:13:50,481 [pool-15-thread-4] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Spring-Security-Dialect.xml
+2022-08-17 12:13:50,473 [pool-15-thread-2] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: LayoutDialect.xml
+2022-08-17 12:13:50,502 [pool-15-thread-1] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Java8Time.xml
+2022-08-17 12:13:50,541 [pool-15-thread-4] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Standard-Dialect.xml
+2022-08-18 09:02:38,472 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-08-18 12:05:51,210 [main] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Scanning for dialect help files on project dependencies
+2022-08-18 12:05:52,686 [pool-14-thread-1] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Spring-Security-Dialect.xml
+2022-08-18 12:05:52,686 [pool-14-thread-4] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: LayoutDialect.xml
+2022-08-18 12:05:52,721 [pool-14-thread-2] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Java8Time.xml
+2022-08-18 12:05:52,827 [pool-14-thread-3] INFO  o.t.e.e.d.ProjectDependencyDialectLocator - Help file found: Standard-Dialect.xml
+2022-08-18 22:55:06,880 [Worker-5: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
