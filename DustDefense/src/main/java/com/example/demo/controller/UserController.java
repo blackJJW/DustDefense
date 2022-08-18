@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,43 +122,7 @@ public class UserController {
         logger.info("인증번호를 보내줄 이메일 : " + email);
         logger.info("메일 전송 완료");
         return emailService.joinEmail(email);
-        
-        
-//        /* 인증번호(난수) 생성 */
-//        Random random = new Random();
-//        int checkNum = random.nextInt(888888) + 111111;
-//        logger.info("인증번호 " + checkNum);
-//        
-//        /* 이메일 보내기 */
-//        String setFrom = "sjinjin6@naver.com";
-//        String toMail = email;
-//        String title = "회원가입 인증 이메일 입니다.";
-//        String content = 
-//                "홈페이지를 방문해주셔서 감사합니다." +
-//                "<br><br>" + 
-//                "인증 번호는 " + checkNum + "입니다." + 
-//                "<br>" + 
-//                "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
-//        
-//        try {
-//            
-//            MimeMessage message = mailSender.createMimeMessage();
-//            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-//            helper.setFrom(setFrom);
-//            helper.setTo(toMail);
-//            helper.setSubject(title);
-//            helper.setText(content,true);
-//            mailSender.send(message);
-//            logger.info("메일 전송 완료");
-//        }catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//        
-//        String num = Integer.toString(checkNum);
-//        return num;
-        
-        
-        
+           
     }
     
     /* 비밀번호 찾기 질문 코드*/
@@ -175,5 +141,27 @@ public class UserController {
     	passwordQuestionCodes.add(new PasswordQuestionCode("00010","좋아하는 캐릭터는?"));
     	return passwordQuestionCodes;
     }
+    
+    // 마이페이지 이동
+  	@GetMapping(value = "/user/mypage.do")
+  	public String infoGET(HttpSession session, Model model) throws Exception{
+
+  		//세션 객체 안에 있는 ID정보 저장
+  		String id = "admin1";//(String) session.getAttribute("id");
+  		logger.info("회원정보보기 GET의 아이디 "+id);
+
+  		//서비스안의 회원정보보기 메서드 호출
+  		UserDTO user = userService.readMember(id);
+
+  		//정보저장 후 페이지 이동
+  		model.addAttribute("user", user);
+  		logger.info("회원정보보기 GET의 DTO "+ user);
+  	
+
+  		
+  		return "user/mypage";
+  	}
+  	
+  	
     
 }

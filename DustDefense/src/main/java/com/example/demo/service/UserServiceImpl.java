@@ -29,6 +29,20 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return userMapper.nicknameCheck(nickname);
 	}
-	
-
+	// 마이페이지 회원정보보기
+	@Override
+	public UserDTO readMember(String id) {
+		
+		System.out.println("S : readMember()실행");
+		UserDTO user = null;
+		
+		try {
+			user = userMapper.readMember(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+		
+	}
 }

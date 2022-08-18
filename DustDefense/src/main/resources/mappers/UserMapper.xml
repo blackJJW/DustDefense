@@ -33,4 +33,15 @@
   		select count(*) from tb_user where nickname = #{nickname}
   	
   	</select>
+  	
+  	<!-- 마이 페이지 -->
+  	<select id="readMember" parameterType="String" resultType="UserDTO">
+		SELECT 
+			*
+		FROM
+			tb_user
+		WHERE
+			id = #{id}
+	</select>
+	
 </mapper>
