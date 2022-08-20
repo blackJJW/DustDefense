@@ -1,3 +1,4 @@
+//----- 좌표 데이터 처리 -------------------------------------------------------------------------------------------------------
 import geojson from "/data/geo/seoulGeo.json" assert { type: "json" };
 
 let data = geojson.features;
@@ -27,6 +28,12 @@ for(let k = 0; k < names.length; k++){
 }
 
 //--------------------------------------------------------------------------------------
+var cityCode = {'종로구' : '111123', '중구' : '111121', '용산구' : '111131', '성동구' : '111142', '광진구' : '111141',
+			   '동대문구' : '111152', '중랑구' : '111151', '성북구' : '111161', '강북구' : '111291', '도봉구' : '111171', 
+			   '노원구' : '111311', '은평구' : '111181', '서대문구' : '111191', '마포구' : '111201', '양천구' : '111301',
+			   '강서구' : '111212', '구로구' : '111221', '금천구' : '111281', '영등포구' : '111231', '동작구' : '111241',
+			   '관악구' : '111251', '서초구' : '111262', '강남구' : '111261', '송파구' : '111273', '강동구' : '111274'}
+
 //--------------------------------------------------------------------------------------
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -82,11 +89,16 @@ function displayArea(area) {
         customOverlay.setMap(null);
     }); 
 
+
     // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다 
     kakao.maps.event.addListener(polygon, 'click', function(mouseEvent) {
+		pollutionValue(cityCode[area.name], 'PM10')
+		pollutionValue(cityCode[area.name], 'PM25')
         var content = '<div class="info">' + 
                     '   <div class="title">' + area.name + '</div>' +
-                    '   <div class="size">총 면적 : 약 ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></div>' +
+                    '   <div class="size">총 면적 : 약 ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></div>' + '</div>' + 
+                    '   <div class="pm10">미세먼지 : ' + pA + '</div>' + 
+                    '   <div class="pm25">초미세먼지 : ' + pB + '</div>' + 
                     '</div>';
 
         infowindow.setContent(content); 
@@ -94,3 +106,162 @@ function displayArea(area) {
         infowindow.setMap(map);
     });
 }
+//-----------------------------------------------------------------------------------------------------------------------
+
+const getPollutionVal = async (code, type) => {
+	const response = await fetch('http://openapi.seoul.go.kr:8088/41796f7462746d7638397263707561/json/ListAirQualityByDistrictService/1/5/' + code);
+	if (response.status === 200){
+		const data = await response.json();
+		return data.ListAirQualityByDistrictService.row[0][type];
+	} else{
+		throw new Error('Error');
+	}
+}
+
+var pA;
+var pB;
+
+const pollutionValue = async (code, type) => {
+	const pollutionVal = await getPollutionVal(code, type);
+	if (type === "PM10"){
+		pA = pollutionVal;	
+	}
+	if (type === "PM25"){
+		pB = pollutionVal;	
+	}
+	//return pollutionVal;
+}
+
+//-----------------------------------------------------------------------------------------------------------------------
+
+function pollution1(code, type){
+	
+	fetch('http://openapi.seoul.go.kr:8088/41796f7462746d7638397263707561/json/ListAirQualityByDistrictService/1/5/' + code)
+		.then((response) => {
+			response.json()
+			})
+		.then((data) => {
+			console.log(data);
+			let tmp = data;
+			tmp = tmp.ListAirQualityByDistrictService.row[0][type];
+			return tmp;
+			})
+		.catch(err => {
+			console.log('Error', err);
+		});	
+	
+	// return data.ListAirQualityByDistrictService.row[0][type];
+}
+
+
+function pollution2(code, type){
+	
+	const getData = url => {
+		return new Promise((resolve, reject) => {
+			const xhr = new XMLHttpRequest();
+			
+			xhr.open('GET', url);
+			xhr.send();
+			
+			xhr.onload = () => {
+				if(xhr.status === 200){
+					resolve(JSON.parse(xhr.response));
+				} else{
+					reject(new Error(xhr.status));
+				}
+			};
+		});
+	};
+	
+	getData('http://openapi.seoul.go.kr:8088/41796f7462746d7638397263707561/json/ListAirQualityByDistrictService/1/5/' + code)
+		.then(res => {
+			console.log(res);
+			console.log(res.ListAirQualityByDistrictService.row[0][type]);
+			return res.ListAirQualityByDistrictService.row[0][type];
+			})
+		.catch(err => console.error(err));
+		
+}
+
+function getPollution(code){
+	const response = fetch('http://openapi.seoul.go.kr:8088/41796f7462746d7638397263707561/json/ListAirQualityByDistrictService/1/5/' + code);
+	return response.then(res => res.json());
+}
+
+async function exec(code, type){
+	var result;
+	try{
+		result = await getPollution(code);
+		console.log(result.ListAirQualityByDistrictService.row[0][type])
+		return result.ListAirQualityByDistrictService.row[0][type];
+	}
+	catch(error){
+		console.log(error);
+	}
+}
+
+
+function pollution4(code, type){
+
+	return fetch('http://openapi.seoul.go.kr:8088/41796f7462746d7638397263707561/json/ListAirQualityByDistrictService/1/5/' + code,
+    {
+    	method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      return responseData;
+    })
+    .catch(error => console.warn(error));
+}
+
+
+function pollution(code, callback){
+	var request = new XMLHttpRequest();
+
+	request.open('GET', 'http://openapi.seoul.go.kr:8088/41796f7462746d7638397263707561/json/ListAirQualityByDistrictService/1/5/' + code);
+
+	request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
+	
+	console.log("send 전----------");
+	request.send();
+	console.log("send 후----------");
+	
+	
+	request.onreadystatechange = function () {
+  		if (this.readyState === 4 && this.status === 200) {
+    		console.log('Status:', this.status);
+   			console.log('Headers:', this.getAllResponseHeaders());
+    		console.log('Body:', this.responseText);
+    		var result = JSON.parse(request.response);
+    		console.log(result);
+    		if(callback) callback(result);
+    		//console.log(pollution.ListAirQualityByDistrictService.row[0][type]);
+ 
+  	  	} else{
+			console.log('Error', this.status, this.statusText);
+		}
+	};
+	
+	/*
+	request.onload = () =>{
+		console.log("----- onload 시작 ------");
+		if(request.status === 200){
+			pollutionValue = JSON.parse(request.responseText);
+			console.log("------ onload if 안");
+			console.log(typeof(pollutionValue.ListAirQualityByDistrictService.row[0][type]));
+		
+			return pollutionValue.ListAirQualityByDistrictService.row[0][type];
+		
+		} else {
+			console.log('Error', request.status, request.statusText);
+		}
+	}
+	*/
+}
+
+
