@@ -39,4 +39,9 @@ public class SampleController {
 	public void kakaoMaps() {
 		log.info("kakaoMaps..........");
 	}
+	
+	@GetMapping("/pathFind")
+	public void pathFind() {
+		log.info("pathFind..........");
+	}
 }
