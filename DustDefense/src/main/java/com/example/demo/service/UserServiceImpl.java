@@ -18,15 +18,16 @@ public class UserServiceImpl implements UserService{
 		userMapper.memberJoin(user);
 		
 	}
+	
 	@Override
 	public int idCheck(String id) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return userMapper.idCheck(id);
 	}
 
 	@Override
 	public int nicknameCheck(String nickname) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return userMapper.nicknameCheck(nickname);
 	}
 	// 마이페이지 회원정보보기
@@ -43,6 +44,26 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		return user;
+		
+	}
+	//회원정보수정
+	@Override
+	public void editMember(UserDTO user) {
+		try {
+			userMapper.editMember(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	// 회원탈퇴
+	@Override
+	public void deleteMember(UserDTO user) {
+		try {
+			userMapper.deleteMember(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 }

@@ -15,4 +15,10 @@ public interface UserService {
 	
 	// 마이페이지 회원정보 보기
 	public UserDTO readMember(String id);
+	
+	//회원정보 수정
+	public void editMember(UserDTO user);
+	
+	//회원탈퇴
+	public void deleteMember(UserDTO user);
 }

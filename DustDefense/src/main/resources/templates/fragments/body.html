@@ -51,7 +51,6 @@
 		    </div>
 		  </div>
 		</nav>
-
 		<div id="wrapper">
 			<div class="main-content">
 				<div class="row row-inline-block small-spacing">
@@ -67,6 +66,7 @@
 							<!-- //.clearfix -->
 							<!-- layout:fragment="content" 부분만 작성해주는 것이다. -->
 							<!-- list나, view.html 같은 파일을 만든다는 것이다. -->
+							<th:block layout:fragment="sidebar"></th:block>
 							<th:block layout:fragment="content"></th:block>
 
 							<th:block layout:fragment="paging"></th:block>
@@ -100,7 +100,10 @@
 		<script th:src="@{/scripts/common.js}"></script>
     	<!-- 적용방법 2 : cdn -->
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    
+    	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	    <script src="js/bootstrap.min.js"></script>
     	<th:block layout:fragment="script"></th:block>
 		
 	</body>

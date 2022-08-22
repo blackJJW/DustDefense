@@ -18,4 +18,10 @@ public interface UserMapper {
 	
 	//마이페이지
 	public UserDTO readMember(String id);
+	
+	// 회원정보수정
+	public void editMember(UserDTO user) throws Exception;
+	
+	// 회원탈퇴
+	public void deleteMember(UserDTO user) throws Exception;
 }

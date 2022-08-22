@@ -32,8 +32,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-    private JavaMailSender mailSender;
+//	@Autowired
+//    private JavaMailSender mailSender;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
@@ -161,7 +161,70 @@ public class UserController {
   		
   		return "user/mypage";
   	}
-  	
-  	
+  	// 개인정보수정 이동
+  	@GetMapping(value = "/user/edit.do")
+  	public String editGET(HttpSession session, Model model) throws Exception{
+  		
+  		//세션 객체 안에 있는 ID정보 저장
+  		String id = "admin1";//(String) session.getAttribute("id");
+  		logger.info("회원정보수정 GET의 아이디 "+id);
+
+  		//서비스안의 회원정보보기 메서드 호출
+  		UserDTO user = userService.readMember(id);
+
+  		//정보저장 후 페이지 이동
+  		model.addAttribute("user", user);
+  		logger.info("회원정보수정 GET의 아이디" +id);
+  		
+  		//위의 3단계를 한 줄에 작성 가능
+  		//model.addAttribute("user", userService.readMember((String)session.getAttribute("id")));
+
+  		return "/user/editForm";
+  		
+  	} 	
+  	@PostMapping(value="/user/edit.do")
+  	public String editPOST(UserDTO user) throws Exception{
+  		logger.info("회원정보수정 입력페이지 POST");
+
+  		userService.editMember(user);
+  		return "redirect:/board/list.do";
+  	}
     
+  	@GetMapping(value = "/user/delete.do")
+  	public String deleteGET(HttpSession session, Model model) throws Exception{
+  		
+  		logger.info("회원탈퇴 삭제 GET진입");
+  		
+  		// 세션제어
+  		String id = "admin1";//(String) session.getAttribute("id");
+//  		if(id == null) {
+//  			return "redirect:/user/mypage";
+//  		}
+  	    //서비스안의 회원정보보기 메서드 호출
+  		UserDTO user = userService.readMember(id);
+  		
+  	    //정보저장 후 페이지 이동
+  		model.addAttribute("user", user);
+  		logger.info("회원탈퇴 GET의 아이디" +id);
+  		return "/user/deleteForm";			
+  	}
+
+  	@PostMapping(value = "/user/delete.do")
+  	public String deletePOST(UserDTO user, HttpSession session) throws Exception{
+  		
+  		logger.info("회원정보 삭제 POST");
+  		
+  		//1. 파라미터값 저장
+  		logger.info("deleteForm전달정보 "+user);
+  		
+  		// 2. 전달받은 정보를 가지고 삭제 동작 처리이동
+  		// 3. service 객체 - 동작
+  		userService.deleteMember(user);
+  		
+  		// 4. 세션초기화
+  		session.invalidate();
+  		
+  		// 5. 페이지 이동
+  		return "redirect:/board/list.do";			
+  	}
 }
