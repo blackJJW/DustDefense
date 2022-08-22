@@ -1,7 +1,12 @@
 package com.example.demo.domain.post;
 
-import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.example.demo.common.dto.SearchDto;
+
 
 @Mapper
 public interface PostMapper {
@@ -35,12 +40,15 @@ public interface PostMapper {
      * 게시글 리스트 조회
      * @return 게시글 리스트
      */
-    List<PostResponse> findAll();
+
+    List<PostResponse> findAll(SearchDto params);
+
 
     /**
      * 게시글 수 카운팅
      * @return 게시글 수
      */
-    int count();
+
+    int count(SearchDto params);
 
 }

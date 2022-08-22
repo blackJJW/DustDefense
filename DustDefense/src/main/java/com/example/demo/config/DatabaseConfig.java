@@ -1,7 +1,7 @@
 package com.example.demo.config;
 
-import javax.sql.DataSource;
-
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,18 +12,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
 
 
 @Configuration//스프링은 @Configuration이 지정된 클래스를 자바 기반의 설정 파일로 인식
 //해당 클래스에서 참조할 properties 파일의 위치를 지정
 @PropertySource("classpath:/application.properties")
 public class DatabaseConfig {
-	@Autowired
-	private ApplicationContext context;
-	
-	@Bean
+
+    @Autowired
+    private ApplicationContext context;
+
+    @Bean
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
 
     public HikariConfig hikariConfig() { //히카리CP 객체를 생성
@@ -36,14 +36,14 @@ public class DatabaseConfig {
 
         return new HikariDataSource(hikariConfig());
     }
-	
-	@Bean
+
+    @Bean
     public SqlSessionFactory sqlSessionFactory() throws Exception {
 
 		//SqlSessionFactoryBean은 마이바티스와 스프링의 연동 모듈로 사용
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
-        
+
         //아래 라인은 기존에 주석 처리 되어 있었으나. 해당 메서드는 getResources 메서드의
   		//인자로 지정된 패턴에 포함되는 XML Mapper를 인식하도록 하는 역할
   		//기존에는 XML Mapper가 없었지만, BoardMapper XML을 추가해줬으므로
@@ -65,6 +65,7 @@ public class DatabaseConfig {
 	//SQLSessionTemplate는 SqlSession을 구현하고,
 	//코드에서 SqlSession을 대체하는 역할을 한다.
     }
+
     //맨 위 어노테이션에서
   	//지금 이 DatabaseConfig.java파일은 @Configuration으로 환경설정이라고 선언했다.
   	//@PropertySource으로 application.properties파일을 참고할거라고 선언했다.
@@ -77,4 +78,7 @@ public class DatabaseConfig {
   	}
 }
 
+
+
+    
 
