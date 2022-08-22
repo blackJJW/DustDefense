@@ -27,11 +27,12 @@ public class UserController {
 
    private final EmailService emailService;
    
-   private LocalDateTime sDate;
+   private LocalDateTime sDate = LocalDateTime.now();
    
    public UserController(EmailService emailService) {
         this.emailService = emailService;
     }
+
 
 	@Autowired
 	private UserService userService;
@@ -121,7 +122,6 @@ public class UserController {
 		
 	}
 	
-   
    /* 이메일 인증 */
     @GetMapping(value="user/mailCheck")
     @ResponseBody//역시 비동기 통신을 위해서 필요하다
