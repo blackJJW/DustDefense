@@ -3,21 +3,27 @@
 <mapper namespace="com.example.demo.mapper.UserMapper">
 	<!-- 회원가입 -->
 	<insert id="memberJoin">
+	BEGIN
 	  		insert into tb_user
 	  		values(
 	  		     #{id}
 	  		   , #{name}
-	  		   , '0'
 	  		   , #{nickname}
 	  		   , #{email}
 	  		   , #{password}
-	  		   , sysdate
+	  		   , #{signupDate}
 	  		   , #{passwordQuestionCode}
 	  		   , #{passwordQuestionAnswer}
-	  		   , 'N'
+	  		   , 1
 	
-	  		)
-	
+	  		);
+	  		
+			insert into tb_user_role_set
+			values(
+				#{id},
+				0
+			);	  	
+	END;
 	</insert>
 	
 	<!-- 아이디 중복검사 -->
