@@ -107,30 +107,59 @@ var a = [37.558901973501555, 127.03223326022596];
 var b = [37.566958174042206, 127.07063103688787];
 
 var btnPathFinder = document.getElementById("btnPathFinder");
-
+var pA;
+//출력1. 호출3
 btnPathFinder.addEventListener('click', function(){
-	routeValue(a, b);
-	console.log(pA);
-	
+   pA = printRoute(a, b);
+   
 })
 
-const getRoute = async (start, destination) => {
-	const response = await fetch('https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf624888ae0402478a4e078fb90dfac4b683ab&start=' 
-					+ start[1] + ',' + start[0] + '&end=' + destination[1] + ',' + destination[0]);
-	if (response.status === 200){
-		const data = await response.json();
-		console.log(data.features[0].geometry.coordinates)
-		return data.features[0].geometry.coordinates;
-	} else{
-		throw new Error('Error');
+
+const printRoute = async (start, destination) => {
+   let response = await fetch('https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf624888ae0402478a4e078fb90dfac4b683ab&start=' 
+               + start[1] + ',' + start[0] + '&end=' + destination[1] + ',' + destination[0]);
+   let data = null;
+   let result = null;
+   let linePath = null;
+   if (response.status === 200){
+      data = await response.json();   //기다림
+      result = data.features[0].geometry.coordinates;
+      console.log("2222 비동기. 좌표 : "+result);
+      pathResult.setAttribute('value', result);
+      
+      linePath = result;
+      drawPath(linePath);
+      //return result;
+   } else{
+      pathResult.setAttribute('value', 'error');
+   }
+}
+
+
+function drawPath (path){
+	var pathCoord = path;
+	
+	var paths = [];
+	
+	
+	console.log(pathCoord);
+	
+	for(let j = 0; j < pathCoord.length; j++){
+		paths.push(new kakao.maps.LatLng(pathCoord[j][1], pathCoord[j][0]));
 	}
+		
+	console.log(paths);
+	
+	// 지도에 표시할 선을 생성합니다
+	var polyline = new kakao.maps.Polyline({
+    	path: paths, // 선을 구성하는 좌표배열 입니다
+    	strokeWeight: 5, // 선의 두께 입니다
+    	strokeColor: '#FFAE00', // 선의 색깔입니다
+    	strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    	strokeStyle: 'solid' // 선의 스타일입니다
+	});
+
+	// 지도에 선을 표시합니다 
+	polyline.setMap(map);  
+	
 }
-
-var pA = [];
-
-const routeValue = async (start, destination) => {
-	const rVal = await getRoute(start, destination);
-	pA = rVal;
-	console.log(pA);
-}
-
