@@ -154,7 +154,7 @@ public class UserController {
      public String infoGET(HttpSession session, Model model) throws Exception{
 
         //세션 객체 안에 있는 ID정보 저장
-        String id = "admin1";//(String) session.getAttribute("id");
+        String id = (String) session.getAttribute("id");
         logger.info("회원정보보기 GET의 아이디 "+id);
 
         //서비스안의 회원정보보기 메서드 호출
@@ -173,7 +173,7 @@ public class UserController {
      public String editGET(HttpSession session, Model model) throws Exception{
         
         //세션 객체 안에 있는 ID정보 저장
-        String id = "admin1";//(String) session.getAttribute("id");
+        String id = (String) session.getAttribute("id");
         logger.info("회원정보수정 GET의 아이디 "+id);
 
         //서비스안의 회원정보보기 메서드 호출
@@ -203,7 +203,7 @@ public class UserController {
         logger.info("회원탈퇴 삭제 GET진입");
         
         // 세션제어
-        String id = "admin1";//(String) session.getAttribute("id");
+        String id = (String) session.getAttribute("id");
 //        if(id == null) {
 //           return "redirect:/user/mypage";
 //        }
