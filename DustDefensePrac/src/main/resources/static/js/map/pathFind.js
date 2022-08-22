@@ -123,9 +123,10 @@ const printRoute = async (start, destination) => {
    let linePath = null;
    if (response.status === 200){
       data = await response.json();   //기다림
-      result = data.features[0].geometry.coordinates;
-      console.log("2222 비동기. 좌표 : "+result);
-      pathResult.setAttribute('value', result);
+      console.log(data);
+      result = data.features[0];
+
+      //pathResult.setAttribute('value', result);
       
       linePath = result;
       drawPath(linePath);
@@ -137,29 +138,79 @@ const printRoute = async (start, destination) => {
 
 
 function drawPath (path){
-	var pathCoord = path;
+	var pathCoord = path.geometry.coordinates;
 	
 	var paths = [];
 	
 	
-	console.log(pathCoord);
-	
 	for(let j = 0; j < pathCoord.length; j++){
 		paths.push(new kakao.maps.LatLng(pathCoord[j][1], pathCoord[j][0]));
 	}
-		
-	console.log(paths);
 	
 	// 지도에 표시할 선을 생성합니다
 	var polyline = new kakao.maps.Polyline({
     	path: paths, // 선을 구성하는 좌표배열 입니다
     	strokeWeight: 5, // 선의 두께 입니다
-    	strokeColor: '#FFAE00', // 선의 색깔입니다
+    	strokeColor: '#f00', // 선의 색깔입니다
     	strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
     	strokeStyle: 'solid' // 선의 스타일입니다
 	});
 
 	// 지도에 선을 표시합니다 
 	polyline.setMap(map);  
+	console.log(polyline.getLength());
+	
+	console.log(path.bbox);
+	
+	var start = path.bbox.slice(0, 2);
+	var end = path.bbox.slice(2);
+	
+	
+	setCenter(a, b);
+}
+
+function setCenter(start, destination){
+	console.log((start[1] + destination[1])/2);
+	console.log((start[0] + destination[0])/2);
+	
+	var moveLatLon = new kakao.maps.LatLng((start[0] + destination[0])/2 , (start[1] + destination[1])/2);
+	var level = map.getLevel();
+	
+	map.panTo(moveLatLon);
+	map.setLevel(level - 2);
+}
+
+function startEndMarkers(start, destination){
+	var positions = [
+		{
+			title : '출발지',
+			latlng : new kakao.maps.LatLng(start[0], start[1])
+		},
+		{
+			title : '도착지',
+			latlng : new kakao.maps.LatLng(destination[0], destinaiton[1])
+		}
+	];
+	
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+	
+	for (var i = 0; i < positions.length; i ++) {
+    
+    	// 마커 이미지의 이미지 크기 입니다
+    	var imageSize = new kakao.maps.Size(24, 35); 
+    
+    	// 마커 이미지를 생성합니다    
+    	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    
+    	// 마커를 생성합니다
+    	var marker = new kakao.maps.Marker({
+        	map: map, // 마커를 표시할 지도
+        	position: positions[i].latlng, // 마커를 표시할 위치
+        	title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        	image : markerImage // 마커 이미지 
+    	});
+    	marker.setMap(map);
+	}
 	
 }
