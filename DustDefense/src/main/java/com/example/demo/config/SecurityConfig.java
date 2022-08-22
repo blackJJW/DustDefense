@@ -33,7 +33,7 @@ public class SecurityConfig{
 		
 		http.authorizeHttpRequests()
 			.antMatchers("/", "/sample/all").permitAll()
-			.antMatchers("/sample/member").hasAnyRole("USER", "ADMIN")
+			.antMatchers("/sample/member", "/user/mypage.do").hasAnyRole("USER", "ADMIN")
 			.antMatchers("/sample/admin").hasRole("ADMIN");
 		
 		http.formLogin()
