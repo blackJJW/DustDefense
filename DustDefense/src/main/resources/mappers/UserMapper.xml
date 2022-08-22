@@ -35,7 +35,7 @@
   	</select>
   	
   	<!-- 마이 페이지 -->
-  	<select id="readMember" parameterType="String" resultType="UserDTO">
+  	<select id="readMember" parameterType="String" resultType="com.example.demo.domain.UserDTO">
 		SELECT 
 			*
 		FROM

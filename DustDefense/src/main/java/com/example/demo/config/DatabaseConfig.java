@@ -1,7 +1,7 @@
 package com.example.demo.config;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,7 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import javax.sql.DataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 
 @Configuration//스프링은 @Configuration이 지정된 클래스를 자바 기반의 설정 파일로 인식
@@ -49,7 +50,7 @@ public class DatabaseConfig {
   		//기존에는 XML Mapper가 없었지만, BoardMapper XML을 추가해줬으므로
   		//해당 파일을 인식할 수 있도록 주석을 해제시켰다.
 		factoryBean.setMapperLocations(context.getResources("classpath:/mappers/**/*Mapper.xml"));
-		factoryBean.setTypeAliasesPackage("com.example.demo.domain"); //xml파일에서 풀패키지명을 안쓰도록
+		//factoryBean.setTypeAliasesPackage("com.example.demo.domain"); //xml파일에서 풀패키지명을 안쓰도록
 		factoryBean.setConfiguration(mybatisConfig()); //아래 메소드 호출
 		return factoryBean.getObject();
 

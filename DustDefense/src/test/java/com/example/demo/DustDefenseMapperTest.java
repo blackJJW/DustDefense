@@ -28,8 +28,8 @@ public class DustDefenseMapperTest {
         postMapper.save(params);
         System.out.println("-------------");
 
-        List<PostResponse> posts = postMapper.findAll();
-        System.out.println("전체 게시글 개수는 : " + posts.size() + "개입니다.");
+        //List<PostResponse> posts = postMapper.findAll();
+        //System.out.println("전체 게시글 개수는 : " + posts.size() + "개입니다.");
     }
     
     @Test
@@ -68,8 +68,8 @@ public class DustDefenseMapperTest {
     
     @Test
     void delete() {
-        System.out.println("삭제 이전의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개입니다.");
-        postMapper.deleteById(1L);
-        System.out.println("삭제 이후의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개입니다.");
+        //System.out.println("삭제 이전의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개입니다.");
+        //postMapper.deleteById(1L);
+        //System.out.println("삭제 이후의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개입니다.");
     }
 }
