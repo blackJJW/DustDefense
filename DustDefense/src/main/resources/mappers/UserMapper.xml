@@ -7,13 +7,13 @@
 	  		insert into tb_user
 	  		values(
 	  		     #{id}
+	  		   , #{signupDate}
+	  		   , #{email}
 	  		   , #{name}
 	  		   , #{nickname}
-	  		   , #{email}
 	  		   , #{password}
-	  		   , #{signupDate}
-	  		   , #{passwordQuestionCode}
 	  		   , #{passwordQuestionAnswer}
+	  		   , #{passwordQuestionCode}
 	  		   , 1
 	
 	  		);

@@ -27,7 +27,7 @@ public class UserController {
 
    private final EmailService emailService;
    
-   private LocalDateTime sDate;
+   private LocalDateTime sDate = LocalDateTime.now();
    
    public UserController(EmailService emailService) {
         this.emailService = emailService;
@@ -63,8 +63,7 @@ public class UserController {
       rawPw = user.getPassword();            // 비밀번호 데이터 얻음
       encodePw = passwordEncoder.encode(rawPw);        // 비밀번호 인코딩
       user.setPassword(encodePw);            // 인코딩된 비밀번호 member객체에 다시 저장
-
-      sDate = user.getSignupDate();
+      
       user.setSignupDate(sDate);  
       // 회원가입 서비스 실행
       userService.memberJoin(user);
