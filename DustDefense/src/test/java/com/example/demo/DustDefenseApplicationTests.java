@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
+
 @SpringBootTest
 class DustDefenseApplicationTests {
 	@Autowired
@@ -14,9 +15,12 @@ class DustDefenseApplicationTests {
 	@Autowired
 	private SqlSessionFactory sessionFactory;
 
+	
+
 	@Test
 	void contextLoads() {
 	}
+
 	
 	@Test
 	public void testByApplicationContext() {
@@ -25,6 +29,7 @@ class DustDefenseApplicationTests {
 			System.out.println(context.getBean("sqlSessionFactory"));
 			System.out.println("==============================");
 		} catch(Exception e) {
+
 			e.printStackTrace();
 		}
 	}

@@ -6,9 +6,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PostRequest {
-	private String id;
-	private String nickname;
-	private String email;
-	private String authority_type;
-	private int valid_member;
+
+
+    private Long id;             // PK
+    private String title;        // 제목
+    private String content;      // 내용
+    private String userId;       // 작성자
+    private Boolean noticeYn;    // 공지글 여부
+
+    
 }
+
