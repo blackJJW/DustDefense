@@ -1,11 +1,13 @@
 package com.example.demo.domain.post;
 
+
 import java.time.LocalDateTime;
 
 import lombok.Getter;
 
 @Getter
 public class PostResponse {
+
 
     private Long id;                       // PK
     private String title;                  // 제목
@@ -19,3 +21,4 @@ public class PostResponse {
 
 
 }
+

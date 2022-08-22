@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="/css/function.css" rel="stylesheet">
+</head>
+<body>
+	<div class="map_wrap">
+    	<div id="map" style="width:70%;height:100%;position:relative;overflow:hidden;"></div>
+
+    	
+	</div>
+	<div>
+		<p>실시간 교통</p>
+		<input type="checkbox" id="trafficInfo">
+		<label for="trafficInfo"></label>
+		
+		<div>
+			<button class="pathFinder" type="button" id="btnPathFinder">경로찾기</button>
+		</div>
+	<!-- 	
+	<div>
+         <input type="text" id="pathResult" readonly>
+      </div>
+		 -->
+	</div>
+	
+</body>
+	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8342abea7f0e15b6a6509a2411a4c29f&libraries=services,clusterer,drawing"></script>
+	<script src="/js/map/pathFind.js" type="module"></script>
+</html>

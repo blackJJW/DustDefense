@@ -13,6 +13,7 @@ import com.example.demo.domain.post.PostResponse;
 @SpringBootTest
 public class PostMapperTest {
 
+
     @Autowired
     PostMapper postMapper;
 
@@ -30,3 +31,4 @@ public class PostMapperTest {
         //System.out.println("전체 게시글 개수는 : " + posts.size() + "개입니다.");
     }
 }
+

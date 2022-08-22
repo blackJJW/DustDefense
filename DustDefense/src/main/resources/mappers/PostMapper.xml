@@ -21,12 +21,12 @@
     <insert id="save" parameterType="com.example.demo.domain.post.PostRequest">
         INSERT INTO community (
               title
-	        , content
-	        , user_id
-	        , view_cnt
-	        , notice_yn
-	        , delete_yn
-	        , created_date
+           , content
+           , user_id
+           , view_cnt
+           , notice_yn
+           , delete_yn
+           , created_date
         ) VALUES (
               #{title}
             , #{content}
@@ -88,7 +88,7 @@
             community
         WHERE
             delete_yn = 0
-			<include refid="search" />
+         <include refid="search" />
         ORDER BY
             id DESC
         OFFSET #{pagination.limitStart} ROWS FETCH FIRST #{recordSize} ROWS ONLY
@@ -96,13 +96,13 @@
     
     <!-- 게시글 수 카운팅 -->
     <select id="count" parameterType="com.example.demo.common.dto.SearchDto" resultType="int">
-    	SELECT
-    		COUNT(*)
-    	FROM
-    		community
-    	WHERE
-    		delete_yn = 0
-    		<include refid="search" />
+       SELECT
+          COUNT(*)
+       FROM
+          community
+       WHERE
+          delete_yn = 0
+          <include refid="search" />
     </select>
     
      <!-- 게시글 검색 -->

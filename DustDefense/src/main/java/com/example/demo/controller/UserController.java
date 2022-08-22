@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +25,14 @@ import com.example.demo.service.UserService;
 @Controller
 public class UserController {
 
-	private final EmailService emailService;
-	
-	public UserController(EmailService emailService) {
+   private final EmailService emailService;
+   
+   private LocalDateTime sDate;
+   
+   public UserController(EmailService emailService) {
         this.emailService = emailService;
     }
+
 	@Autowired
 	private UserService userService;
 	
@@ -116,7 +120,9 @@ public class UserController {
 		
 		
 	}
-	/* 이메일 인증 */
+	
+   
+   /* 이메일 인증 */
     @GetMapping(value="user/mailCheck")
     @ResponseBody//역시 비동기 통신을 위해서 필요하다
     public String mailCheckGET(String email) throws Exception{
@@ -132,103 +138,103 @@ public class UserController {
     /* 비밀번호 찾기 질문 코드*/
     @ModelAttribute("passwordQuestionCodes")
     public List<PasswordQuestionCode> passwordQuestionCodes() {
-    	List<PasswordQuestionCode> passwordQuestionCodes = new ArrayList<>();
-    	passwordQuestionCodes.add(new PasswordQuestionCode("00001","기억에 남는 추억의 장소는?"));
-    	passwordQuestionCodes.add(new PasswordQuestionCode("00002","자신의 인생 좌우명은?"));
-    	passwordQuestionCodes.add(new PasswordQuestionCode("00003","자신의 보물 제 1호는?"));
-    	passwordQuestionCodes.add(new PasswordQuestionCode("00004","가장 기억에 남는 선생님 성함은?"));
-    	passwordQuestionCodes.add(new PasswordQuestionCode("00005","추억하고 싶은 날짜는?"));
-    	passwordQuestionCodes.add(new PasswordQuestionCode("00006","받았던 선물 중 기억에 남는 독특한 선물은?"));
-    	passwordQuestionCodes.add(new PasswordQuestionCode("00007","학창시절 가장 생각나는 친구 이름은?"));
-    	passwordQuestionCodes.add(new PasswordQuestionCode("00008","인상 깊게 읽은 책 제목은?"));
-    	passwordQuestionCodes.add(new PasswordQuestionCode("00009","존경하는 인물은?"));
-    	passwordQuestionCodes.add(new PasswordQuestionCode("00010","좋아하는 캐릭터는?"));
-    	return passwordQuestionCodes;
+       List<PasswordQuestionCode> passwordQuestionCodes = new ArrayList<>();
+       passwordQuestionCodes.add(new PasswordQuestionCode("00001","기억에 남는 추억의 장소는?"));
+       passwordQuestionCodes.add(new PasswordQuestionCode("00002","자신의 인생 좌우명은?"));
+       passwordQuestionCodes.add(new PasswordQuestionCode("00003","자신의 보물 제 1호는?"));
+       passwordQuestionCodes.add(new PasswordQuestionCode("00004","가장 기억에 남는 선생님 성함은?"));
+       passwordQuestionCodes.add(new PasswordQuestionCode("00005","추억하고 싶은 날짜는?"));
+       passwordQuestionCodes.add(new PasswordQuestionCode("00006","받았던 선물 중 기억에 남는 독특한 선물은?"));
+       passwordQuestionCodes.add(new PasswordQuestionCode("00007","학창시절 가장 생각나는 친구 이름은?"));
+       passwordQuestionCodes.add(new PasswordQuestionCode("00008","인상 깊게 읽은 책 제목은?"));
+       passwordQuestionCodes.add(new PasswordQuestionCode("00009","존경하는 인물은?"));
+       passwordQuestionCodes.add(new PasswordQuestionCode("00010","좋아하는 캐릭터는?"));
+       return passwordQuestionCodes;
     }
     
     // 마이페이지 이동
-  	@GetMapping(value = "/user/mypage.do")
-  	public String infoGET(HttpSession session, Model model) throws Exception{
+     @GetMapping(value = "/user/mypage.do")
+     public String infoGET(HttpSession session, Model model) throws Exception{
 
-  		//세션 객체 안에 있는 ID정보 저장
-  		String id = "admin1";//(String) session.getAttribute("id");
-  		logger.info("회원정보보기 GET의 아이디 "+id);
+        //세션 객체 안에 있는 ID정보 저장
+        String id = "admin1";//(String) session.getAttribute("id");
+        logger.info("회원정보보기 GET의 아이디 "+id);
 
-  		//서비스안의 회원정보보기 메서드 호출
-  		UserDTO user = userService.readMember(id);
+        //서비스안의 회원정보보기 메서드 호출
+        UserDTO user = userService.readMember(id);
 
-  		//정보저장 후 페이지 이동
-  		model.addAttribute("user", user);
-  		logger.info("회원정보보기 GET의 DTO "+ user);
-  	
+        //정보저장 후 페이지 이동
+        model.addAttribute("user", user);
+        logger.info("회원정보보기 GET의 DTO "+ user);
+     
 
-  		
-  		return "user/mypage";
-  	}
-  	// 개인정보수정 이동
-  	@GetMapping(value = "/user/edit.do")
-  	public String editGET(HttpSession session, Model model) throws Exception{
-  		
-  		//세션 객체 안에 있는 ID정보 저장
-  		String id = "admin1";//(String) session.getAttribute("id");
-  		logger.info("회원정보수정 GET의 아이디 "+id);
+        
+        return "user/mypage";
+     }
+     // 개인정보수정 이동
+     @GetMapping(value = "/user/edit.do")
+     public String editGET(HttpSession session, Model model) throws Exception{
+        
+        //세션 객체 안에 있는 ID정보 저장
+        String id = "admin1";//(String) session.getAttribute("id");
+        logger.info("회원정보수정 GET의 아이디 "+id);
 
-  		//서비스안의 회원정보보기 메서드 호출
-  		UserDTO user = userService.readMember(id);
+        //서비스안의 회원정보보기 메서드 호출
+        UserDTO user = userService.readMember(id);
 
-  		//정보저장 후 페이지 이동
-  		model.addAttribute("user", user);
-  		logger.info("회원정보수정 GET의 아이디" +id);
-  		
-  		//위의 3단계를 한 줄에 작성 가능
-  		//model.addAttribute("user", userService.readMember((String)session.getAttribute("id")));
+        //정보저장 후 페이지 이동
+        model.addAttribute("user", user);
+        logger.info("회원정보수정 GET의 아이디" +id);
+        
+        //위의 3단계를 한 줄에 작성 가능
+        //model.addAttribute("user", userService.readMember((String)session.getAttribute("id")));
 
-  		return "/user/editForm";
-  		
-  	} 	
-  	@PostMapping(value="/user/edit.do")
-  	public String editPOST(UserDTO user) throws Exception{
-  		logger.info("회원정보수정 입력페이지 POST");
+        return "/user/editForm";
+        
+     }    
+     @PostMapping(value="/user/edit.do")
+     public String editPOST(UserDTO user) throws Exception{
+        logger.info("회원정보수정 입력페이지 POST");
 
-  		userService.editMember(user);
-  		return "redirect:/board/list.do";
-  	}
+        userService.editMember(user);
+        return "redirect:/board/list.do";
+     }
     
-  	@GetMapping(value = "/user/delete.do")
-  	public String deleteGET(HttpSession session, Model model) throws Exception{
-  		
-  		logger.info("회원탈퇴 삭제 GET진입");
-  		
-  		// 세션제어
-  		String id = "admin1";//(String) session.getAttribute("id");
-//  		if(id == null) {
-//  			return "redirect:/user/mypage";
-//  		}
-  	    //서비스안의 회원정보보기 메서드 호출
-  		UserDTO user = userService.readMember(id);
-  		
-  	    //정보저장 후 페이지 이동
-  		model.addAttribute("user", user);
-  		logger.info("회원탈퇴 GET의 아이디" +id);
-  		return "/user/deleteForm";			
-  	}
+     @GetMapping(value = "/user/delete.do")
+     public String deleteGET(HttpSession session, Model model) throws Exception{
+        
+        logger.info("회원탈퇴 삭제 GET진입");
+        
+        // 세션제어
+        String id = "admin1";//(String) session.getAttribute("id");
+//        if(id == null) {
+//           return "redirect:/user/mypage";
+//        }
+         //서비스안의 회원정보보기 메서드 호출
+        UserDTO user = userService.readMember(id);
+        
+         //정보저장 후 페이지 이동
+        model.addAttribute("user", user);
+        logger.info("회원탈퇴 GET의 아이디" +id);
+        return "/user/deleteForm";         
+     }
 
-  	@PostMapping(value = "/user/delete.do")
-  	public String deletePOST(UserDTO user, HttpSession session) throws Exception{
-  		
-  		logger.info("회원정보 삭제 POST");
-  		
-  		//1. 파라미터값 저장
-  		logger.info("deleteForm전달정보 "+user);
-  		
-  		// 2. 전달받은 정보를 가지고 삭제 동작 처리이동
-  		// 3. service 객체 - 동작
-  		userService.deleteMember(user);
-  		
-  		// 4. 세션초기화
-  		session.invalidate();
-  		
-  		// 5. 페이지 이동
-  		return "redirect:/board/list.do";			
-  	}
+     @PostMapping(value = "/user/delete.do")
+     public String deletePOST(UserDTO user, HttpSession session) throws Exception{
+        
+        logger.info("회원정보 삭제 POST");
+        
+        //1. 파라미터값 저장
+        logger.info("deleteForm전달정보 "+user);
+        
+        // 2. 전달받은 정보를 가지고 삭제 동작 처리이동
+        // 3. service 객체 - 동작
+        userService.deleteMember(user);
+        
+        // 4. 세션초기화
+        session.invalidate();
+        
+        // 5. 페이지 이동
+        return "redirect:/board/list.do";         
+     }
 }

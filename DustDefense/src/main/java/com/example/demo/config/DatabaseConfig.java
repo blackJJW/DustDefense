@@ -67,6 +67,7 @@ public class DatabaseConfig {
 	//코드에서 SqlSession을 대체하는 역할을 한다.
     }
 
+
     //맨 위 어노테이션에서
   	//지금 이 DatabaseConfig.java파일은 @Configuration으로 환경설정이라고 선언했다.
   	//@PropertySource으로 application.properties파일을 참고할거라고 선언했다.
@@ -77,6 +78,7 @@ public class DatabaseConfig {
   	public org.apache.ibatis.session.Configuration mybatisConfig() {
   		return new org.apache.ibatis.session.Configuration();
   	}
+
 }
 
 

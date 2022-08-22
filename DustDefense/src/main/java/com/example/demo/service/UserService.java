@@ -1,6 +1,10 @@
 package com.example.demo.service;
 
+
+import java.util.List;
+
 import com.example.demo.domain.UserDTO;
+import com.example.demo.model.User;
 
 public interface UserService {
 
@@ -21,4 +25,5 @@ public interface UserService {
 	
 	//회원탈퇴
 	public void deleteMember(UserDTO user);
+
 }

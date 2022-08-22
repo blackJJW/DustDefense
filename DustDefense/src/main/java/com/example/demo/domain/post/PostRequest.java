@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class PostRequest {
 
+
     private Long id;             // PK
     private String title;        // 제목
     private String content;      // 내용
@@ -15,3 +16,4 @@ public class PostRequest {
 
     
 }
+
