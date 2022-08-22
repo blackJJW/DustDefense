@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +32,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 //	@Autowired
 //    private JavaMailSender mailSender;
 	
@@ -51,21 +54,22 @@ public class UserController {
 	public String joinPOST(UserDTO user) throws Exception{
 		
 		logger.info("join 진입");
-		
+		String rawPw = "";            // 인코딩 전 비밀번호
+        String encodePw = "";        // 인코딩 후 비밀번호
+        
+        rawPw = user.getPassword();            // 비밀번호 데이터 얻음
+        encodePw = passwordEncoder.encode(rawPw);        // 비밀번호 인코딩
+        user.setPassword(encodePw);            // 인코딩된 비밀번호 member객체에 다시 저장
+        
+        
 		// 회원가입 서비스 실행
 		userService.memberJoin(user);
 		
 		logger.info("join Service 성공");
 		
-		return "redirect:/board/list.do";
 		
-	}
-	//로그인 페이지 이동
-	@GetMapping(value = "/user/login.do")
-	public void loginGET() {
-		
-		logger.info("로그인 페이지 진입");
-		
+		return "redirect:/";
+			
 	}
 	// 아이디 중복 검사
 	@PostMapping(value = "user/userIdChk")
