@@ -160,14 +160,25 @@ function drawPath (path){
 	polyline.setMap(map);  
 	console.log(polyline.getLength());
 	
-	console.log(path.bbox);
-	
-	var start = path.bbox.slice(0, 2);
-	var end = path.bbox.slice(2);
-	
-	
+	startEndMarkers(a, b);
 	setCenter(a, b);
+	
+	btnRemovePath.addEventListener('click', function(){
+		polyline.setMap(null);
+		var originCenter = new kakao.maps.LatLng(37.566826, 126.9786567);
+		
+		for(let i = 0; i < marker.length; i++){
+			marker.setMap(null);
+		}
+		
+		map.setCenter(originCenter);
+        map.setLevel(9);
+	});
 }
+
+var btnRemovePath = document.getElementById('btnDisablePathFinder');
+
+
 
 function setCenter(start, destination){
 	console.log((start[1] + destination[1])/2);
@@ -176,9 +187,12 @@ function setCenter(start, destination){
 	var moveLatLon = new kakao.maps.LatLng((start[0] + destination[0])/2 , (start[1] + destination[1])/2);
 	var level = map.getLevel();
 	
+	map.setLevel(level - 3);
 	map.panTo(moveLatLon);
-	map.setLevel(level - 2);
+	
 }
+
+var marker;
 
 function startEndMarkers(start, destination){
 	var positions = [
@@ -188,7 +202,7 @@ function startEndMarkers(start, destination){
 		},
 		{
 			title : '도착지',
-			latlng : new kakao.maps.LatLng(destination[0], destinaiton[1])
+			latlng : new kakao.maps.LatLng(destination[0], destination[1])
 		}
 	];
 	
@@ -204,7 +218,7 @@ function startEndMarkers(start, destination){
     	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
     
     	// 마커를 생성합니다
-    	var marker = new kakao.maps.Marker({
+    	marker = new kakao.maps.Marker({
         	map: map, // 마커를 표시할 지도
         	position: positions[i].latlng, // 마커를 표시할 위치
         	title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
