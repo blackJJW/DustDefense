@@ -130,7 +130,7 @@ var btnPathFinder = document.getElementById("btnPathFinder");
 var pA;
 //출력1. 호출3
 btnPathFinder.addEventListener('click', function(){
-	
+	console.log("pathfiner 시작");
    pA = printRoute(startCodeVal, endCodeVal);
    
 })
@@ -154,7 +154,7 @@ const printRoute = async (start, destination) => {
       //return result;
    } else{
       //pathResult.setAttribute('value', 'error');
-      console.log('Error');
+      console.log('Error : ' + response.status);
    }
 }
 
