@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.example.demo.domain.UserDTO;
@@ -26,4 +27,5 @@ public interface UserService {
 	//회원탈퇴
 	public void deleteMember(UserDTO user);
 
+	
 }

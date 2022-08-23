@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.domain.PasswordQuestionCode;
 import com.example.demo.domain.UserDTO;
+import com.example.demo.security.dto.TbUserAuthDTO;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.UserService;
 
@@ -152,39 +154,30 @@ public class UserController {
        return passwordQuestionCodes;
     }
     
+    
     // 마이페이지 이동
      @GetMapping(value = "/user/mypage.do")
-     public String infoGET(HttpSession session, Model model) throws Exception{
+     public String infoGET(@AuthenticationPrincipal TbUserAuthDTO tbUserAuth) throws Exception{
 
-        //세션 객체 안에 있는 ID정보 저장
-        String id = (String) session.getAttribute("id");
-        logger.info("회원정보보기 GET의 아이디 "+id);
-
-        //서비스안의 회원정보보기 메서드 호출
-        UserDTO user = userService.readMember(id);
-
-        //정보저장 후 페이지 이동
-        model.addAttribute("user", user);
-        logger.info("회원정보보기 GET의 DTO "+ user);
-     
-
-        
+    	logger.info("exMember..........");
+  		logger.info("tbUserAuth");
         return "user/mypage";
      }
+        
      // 개인정보수정 이동
      @GetMapping(value = "/user/edit.do")
-     public String editGET(HttpSession session, Model model) throws Exception{
+     public String editGET() throws Exception{
         
         //세션 객체 안에 있는 ID정보 저장
-        String id = (String) session.getAttribute("id");
-        logger.info("회원정보수정 GET의 아이디 "+id);
+        //String id = (String) session.getAttribute("id");
+        //logger.info("회원정보수정 GET의 아이디 "+id);
 
         //서비스안의 회원정보보기 메서드 호출
-        UserDTO user = userService.readMember(id);
+        //UserDTO user = userService.readMember(id);
 
         //정보저장 후 페이지 이동
-        model.addAttribute("user", user);
-        logger.info("회원정보수정 GET의 아이디" +id);
+        //model.addAttribute("user", user);
+        //logger.info("회원정보수정 GET의 아이디" +id);
         
         //위의 3단계를 한 줄에 작성 가능
         //model.addAttribute("user", userService.readMember((String)session.getAttribute("id")));

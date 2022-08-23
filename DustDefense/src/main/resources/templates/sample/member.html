@@ -22,9 +22,9 @@
 	Authenticated username:
 	<div sec:authentication="principal.username"></div>
 	Authenticated user roles:
-	<div sec:authentication="principal.authorities">
-	
-	</div>
+	<div sec:authentication="principal.authorities"></div>
+	Authenticated email:
+	<div sec:authentication="principal.email"></div>
 	
 	<p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">로그아웃</a></p>
 	

@@ -1,5 +1,7 @@
 package com.example.demo.mapper;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.domain.UserDTO;
@@ -24,4 +26,6 @@ public interface UserMapper {
 	
 	// 회원탈퇴
 	public void deleteMember(UserDTO user) throws Exception;
+
+	
 }
