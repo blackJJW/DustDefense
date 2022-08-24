@@ -10,11 +10,20 @@
 
 		<th:block layout:fragment="title"></th:block>
 
-		<link rel="stylesheet" th:href="@{/css/style.css}" />
-		<link rel="stylesheet" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+		<!-- <link rel="stylesheet" th:href="@{/css/style.css}" /> -->
+		<!-- <link rel="stylesheet" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" /> -->
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/> -->
 	    <!-- Bootstrap파일 위치 설정 -->
-    	<link href="/plugin/bootstrap/css/bootstrap.css" rel="stylesheet">
+	    
+    	<link rel="stylesheet" th:href="@{/plugin/bootstrap/css/bootstrap.css}" >
+    	<link rel="stylesheet" th:href="@{/css/loginPage.css}" >
+    	
+    	
+    	<!-- 로그인 -->
+    	
+	    <!-- <link rel="stylesheet" href="/plugin/bootstrap/css/bootstrap.min.css" > -->
+	    
+	    
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -23,6 +32,7 @@
       	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		
 		<th:block layout:fragment="add-css"></th:block>
+		
 	</head>
 </html> 
 
