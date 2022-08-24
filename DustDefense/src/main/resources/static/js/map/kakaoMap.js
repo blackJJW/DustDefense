@@ -105,8 +105,8 @@ function displayArea(area) {
 		pollutionValue(cityCode[area.name], 'PM25');
         var content = '<div class="info">' + 
                     '   <div class="title">' + area.name + '</div>' +
-                    '   <div class="pm10">미세먼지 : ' + pA + '</div>' + 
-                    '   <div class="pm25">초미세먼지 : ' + pB + '</div>' + 
+                    '   <div class="pm10">미세먼지 : ' + pA + ' ㎍/㎥' +'</div>' + 
+                    '   <div class="pm25">초미세먼지 : ' + pB +' ㎍/㎥' +'</div>' + 
                     '</div>';
 		
 		var colorCode = changeColor(pA);

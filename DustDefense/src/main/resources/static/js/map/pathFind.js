@@ -18,6 +18,47 @@ map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
 var zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+//--------------------------------------------------------------------------------------------
+
+$.getJSON("/data/geo/seoulGeo.json", function(geojson){
+	
+	var data = geojson.features;
+	var coordinates = [];
+	var name ='';
+	
+	$.each(data, function(index, val){
+		coordinates = val.geometry.coordinates;
+		name = val.properties.SIG_KOR_NM;
+		
+		displayArea(coordinates, name);
+	})
+})
+
+var polygons = [];
+
+function displayArea(coordinates, name){
+	var path = [];
+	var points = [];
+	
+	$.each(coordinates[0], function(index, coordinate){
+		var point = new Object();
+		point.x = coordinate[1];
+		point.y = coordinate[0];
+		points.push(point);
+		path.push(new kakao.maps.LatLng(coordinate[1], coordinate[0]));
+		
+	})
+	
+	var polygon = new kakao.maps.Polygon({
+		map : map,
+		path : path,
+		strokeWeight : 2,
+		strokeColor : '#004c80',
+		strokeOpacity : 1
+	});
+	
+	polygons.push(polygon);
+}
 
 //---------------------------------------------------------------------------------------
 //----- 실시간 교통 정보 ---------------------------------------------------------------------
@@ -62,8 +103,13 @@ var keyword = document.getElementById("keyword");
 var searchKeyword = document.getElementById("btnSearchKeyword");
 
 searchKeyword.addEventListener('click', function(){
-	// 키워드로 장소를 검색합니다
-	ps.keywordSearch(keyword.value, placesSearchCB); 
+	if(keyword.value === ''){
+		alert("검색어를 입력해주세요.")
+	} else{
+		// 키워드로 장소를 검색합니다
+		ps.keywordSearch(keyword.value, placesSearchCB); 	
+	}
+	
 })
 
 
@@ -82,7 +128,11 @@ function placesSearchCB (data, status, pagination) {
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
-    } 
+    } else if(status === kakao.maps.services.Status.ZERO_RESULT){
+		alert("검색 결과가 없습니다.");
+	} else if(status === kakao.maps.services.Status.ERROR){
+		alert("에러 발생");
+	}
 }
 
 // 지도에 마커를 표시하는 함수입니다
@@ -105,7 +155,6 @@ function displayMarker(place) {
     });
 
     $(document).on('click','#btnPathFinder', function(){
-		console.log("1111");
 		infowindow.setMap(null);
    		marker.setMap(null);
    
@@ -136,8 +185,13 @@ function getAddr(lat, lng, place){
 	let callback = function(result, status){
 		if(status === kakao.maps.services.Status.OK){
 			console.log(result);
-			place.innerHTML = '<div>'+'--- '+'도로명주소 : ' + result[0].road_address.address_name + '</div>' +
-            				  '<div>'+'--- '+'지번 주소 : ' + result[0].address.address_name + '</div>';
+			try{
+				place.innerHTML = '<div>'+'--- '+'도로명주소 : ' + result[0].road_address.address_name + '</div>' +
+            					  '<div>'+'--- '+'지번 주소 : ' + result[0].address.address_name + '</div>';	
+			} catch(e){
+				place.innerHTML = '<div>'+'--- '+'지번 주소 : ' + result[0].address.address_name + '</div>';
+			}
+			
 		}
 		
 	}
@@ -148,15 +202,12 @@ function getAddr(lat, lng, place){
 
 var btnPathFinder = document.getElementById("btnPathFinder");
 var pA;
-//출력1. 호출3
-//btnPathFinder.addEventListener('click', function(){
-//	console.log("22222");
-//    pA = printRoute(startCodeVal, endCodeVal);
-   
-//})
+var region = [];
+
 
 $(document).on('click','#btnPathFinder', function(){
     pA = printRoute(startCodeVal, endCodeVal);
+    
 });
 
 var distance = document.getElementById("distance");
@@ -170,20 +221,54 @@ const printRoute = async (start, destination) => {
    let linePath = null;
    if (response.status === 200){
       data = await response.json();   //기다림
-      console.log(data);
+      //console.log(data);
       result = data.features[0];
       //pathResult.setAttribute('value', result);
       
       linePath = result;
+      distictRegion(linePath);
       drawPath(linePath);
-      //return result;
+
    } else{
       //pathResult.setAttribute('value', 'error');
       console.log('Error : ' + response.status);
    }
 }
 
+var regionArr = new Array();
 
+function distictRegion(path){
+	
+	
+	var pathCoord = path.geometry.coordinates;
+	
+	console.log(pathCoord);
+	
+	for(let i = 0; i < pathCoord.length; i++){
+		getAddrx(pathCoord[i][1], pathCoord[i][0]);
+			
+	}
+	
+}
+
+
+function getAddrx(lat,lng){
+    let geocoder = new kakao.maps.services.Geocoder();
+
+    let coord = new kakao.maps.LatLng(lat, lng);
+    let callback = function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            regionArr.push(result[0].address.region_2depth_name);
+        }
+    }
+    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+}
+
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+var dur1;
 function drawPath (path){
 	var pathCoord = path.geometry.coordinates;
 	
@@ -193,10 +278,23 @@ function drawPath (path){
 	var summary = path.properties.summary;
 	var dis = summary["distance"];
 	var dur = Math.ceil(summary["duration"]);
+	dur1 = dur;
+	var setArr;
+	var uniqueArr;
 	
+	var aArr;
+	sleep(3000)
+		.then(() => aArr = regionArr)
+		.then(() => console.log(aArr))
+		.then(() => setArr = new Set(aArr))
+		.then(() => uniqueArr = [...setArr])
+		.then(() => console.log(uniqueArr))
+		.then(() => getAveragePollution(uniqueArr));
+	
+
+	regionArr = [];
 	getTimeStringSeconds(dur);
 	
-	console.log(dis);
 	distance.innerHTML = dis + ' m';
 	
 	
@@ -215,12 +313,12 @@ function drawPath (path){
 	
 	// 지도에 선을 표시합니다 
 	polyline.setMap(map);  
-	console.log(polyline.getLength());
 	
 	setCenter(startCodeVal, endCodeVal);
 	
 	btnRemovePath.addEventListener('click', function(){
 		polyline.setMap(null);
+		regionArr = [];
 		var originCenter = new kakao.maps.LatLng(37.566826, 126.9786567);
 		
 		map.setCenter(originCenter);
@@ -310,3 +408,71 @@ function startEndMarkers(start, destination){
     endMarker.setMap(map);
 
 }
+
+//---------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
+var cityCode = {'종로구' : '111123', '중구' : '111121', '용산구' : '111131', '성동구' : '111142', '광진구' : '111141',
+			   '동대문구' : '111152', '중랑구' : '111151', '성북구' : '111161', '강북구' : '111291', '도봉구' : '111171', 
+			   '노원구' : '111311', '은평구' : '111181', '서대문구' : '111191', '마포구' : '111201', '양천구' : '111301',
+			   '강서구' : '111212', '구로구' : '111221', '금천구' : '111281', '영등포구' : '111231', '동작구' : '111241',
+			   '관악구' : '111251', '서초구' : '111262', '강남구' : '111261', '송파구' : '111273', '강동구' : '111274'}
+
+//--------------------------------------------------------------------------------------
+const getPollutionVal = async (code, type) => {
+	const response = await fetch('http://openapi.seoul.go.kr:8088/41796f7462746d7638397263707561/json/ListAirQualityByDistrictService/1/5/' + code);
+	if (response.status === 200){
+		const data = await response.json();
+		return data.ListAirQualityByDistrictService.row[0][type];
+	} else{
+		throw new Error('Error');
+	}
+}
+
+var pA;
+var pB;
+
+
+var pArr = []
+const pollutionValue = async (code, type) => {
+	const pollutionVal = await getPollutionVal(code, type);
+	if (type === "PM10"){
+		pA = pollutionVal;
+		console.log(pA);
+		return pA;	
+	}
+
+}
+
+var averagePollution;
+var inhalePm10Val = document.getElementById("inhalePm10");
+
+async function getAveragePollution(arr){
+	var polArr = new Array();
+	for (let i = 0; i < arr.length; i++){
+		pArr[i] = await pollutionValue(cityCode[arr[i]], 'PM10');
+	}
+	console.log(pArr);
+	
+	for (let i = 0; i < pArr.length; i++){
+		pArr[i] = parseInt(pArr[i]);
+	}
+	
+	const resultA = pArr.reduce(function add(sum, currValue){
+		return sum + currValue;
+	}, 0);
+	
+	const averageA = resultA / pArr.length;
+	
+	averagePollution = averageA;
+	console.log(averageA);
+	console.log(dur1);
+	
+	var oV = (315 / 3600) * dur1;
+	var percentVA = ((oV / 45) * 100).toFixed(2);
+	
+	inhalePm10Val.innerHTML = oV + ' ㎍/㎥' +
+							'<div>WHO 1일 권장량 45 ㎍/㎥ 의 약 ' + percentVA + '% 를 차지 합니다.</div>' ;
+	
+	regionArr = [];
+}
+//-----------------------------------------------------------------------------------------------------------------------
