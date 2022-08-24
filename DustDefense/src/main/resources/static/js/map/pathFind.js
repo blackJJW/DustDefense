@@ -104,37 +104,63 @@ function displayMarker(place) {
         
     });
 
-    btnPathFinder.addEventListener('click', function(){
+    $(document).on('click','#btnPathFinder', function(){
+		console.log("1111");
 		infowindow.setMap(null);
    		marker.setMap(null);
    
 	});
 }
 
+var startAddr = document.getElementById("startAddr");
+var endAddr = document.getElementById("endAddr");
+
 function getStartCoord(x, y){
 		startCodeVal[0] = x;
 		startCodeVal[1] = y;
 		console.log(startCodeVal);
+		getAddr(y, x, startAddr);
 }  
 
 function getEndCoord(x, y){
 		endCodeVal[0] = x;
 		endCodeVal[1] = y;
 		console.log(endCodeVal);
+		getAddr(y, x, endAddr);
 }  
 
+function getAddr(lat, lng, place){
+	let geocoder = new kakao.maps.services.Geocoder();
+	
+	let coord = new kakao.maps.LatLng(lat, lng);
+	let callback = function(result, status){
+		if(status === kakao.maps.services.Status.OK){
+			console.log(result);
+			place.innerHTML = '<div>'+'--- '+'도로명주소 : ' + result[0].road_address.address_name + '</div>' +
+            				  '<div>'+'--- '+'지번 주소 : ' + result[0].address.address_name + '</div>';
+		}
+		
+	}
+	geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+}	
 //-------------------------------------------------------------------------------------------
 
 
 var btnPathFinder = document.getElementById("btnPathFinder");
 var pA;
 //출력1. 호출3
-btnPathFinder.addEventListener('click', function(){
-	console.log("pathfiner 시작");
-   pA = printRoute(startCodeVal, endCodeVal);
+//btnPathFinder.addEventListener('click', function(){
+//	console.log("22222");
+//    pA = printRoute(startCodeVal, endCodeVal);
    
-})
+//})
 
+$(document).on('click','#btnPathFinder', function(){
+    pA = printRoute(startCodeVal, endCodeVal);
+});
+
+var distance = document.getElementById("distance");
+var duration = document.getElementById("duration");
 
 const printRoute = async (start, destination) => {
    let response = await fetch('https://api.openrouteservice.org/v2/directions/cycling-regular?api_key=5b3ce3597851110001cf624888ae0402478a4e078fb90dfac4b683ab&start=' 
@@ -146,7 +172,6 @@ const printRoute = async (start, destination) => {
       data = await response.json();   //기다림
       console.log(data);
       result = data.features[0];
-
       //pathResult.setAttribute('value', result);
       
       linePath = result;
@@ -165,6 +190,15 @@ function drawPath (path){
 	var paths = [];
 	
 	var polyline;
+	var summary = path.properties.summary;
+	var dis = summary["distance"];
+	var dur = Math.ceil(summary["duration"]);
+	
+	getTimeStringSeconds(dur);
+	
+	console.log(dis);
+	distance.innerHTML = dis + ' m';
+	
 	
 	for(let j = 0; j < pathCoord.length; j++){
 		paths.push(new kakao.maps.LatLng(pathCoord[j][1], pathCoord[j][0]));
@@ -193,6 +227,22 @@ function drawPath (path){
         map.setLevel(9);
 	});
 }
+
+function getTimeStringSeconds(seconds){
+	var hour, min, sec;
+	
+	hour = parseInt(seconds / 3600);
+	min = parseInt((seconds % 3600) / 60);
+	sec = seconds % 60;
+	
+	if(hour.toString().length == 1) hour = "0" + hour;
+	if(min.toString().length == 1) min = "0" + min;
+	if(sec.toString().length == 1) sec = "0" + sec;
+	
+	console.log(hour + ":" + min + ":" + sec);
+	duration.innerHTML = hour + ":" + min + ":" + sec;
+}
+
 
 var btnRemovePath = document.getElementById('btnDisablePathFinder');
 
