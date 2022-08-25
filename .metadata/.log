@@ -9365,3 +9365,6 @@ Binding(CTRL+D,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.textEditorScope,,,system)
+
+!ENTRY org.eclipse.lsp4e 1 0 2022-08-25 11:12:14.193
+!MESSAGE [Info]	ESLint server running in node v16.14.2

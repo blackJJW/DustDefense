@@ -5,8 +5,7 @@
 	</th:block>
 	<th:block layout:fragment="content">
 		<div>
-			<button type="button" id="btnFineDustStatus">미세먼지</button>
-			<button type="button" id="btnPathFinder">경로찾기</button>
+			<button type="button" id="btnFineDustStatus" onclick="location.href='/'">미세먼지 현황</button>
 		</div>
 
 		<h1>자전거 경로</h1>
@@ -55,14 +54,6 @@
 		<link th:href="@{/css/function.css}" rel="stylesheet">
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8342abea7f0e15b6a6509a2411a4c29f&libraries=services,clusterer,drawing"></script>
 		<script th:src="@{/js/map/pathFind.js}"></script>
-		<script>
-			function fetchPage(name){
-				fetch(name).then(function(response){
-					response.text().then(function(text){
-						document.querySelector('article').innerHTML = text;
-					})
-				});
-			}
-		</script>
+		
 	</th:block>
 </html>

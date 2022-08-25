@@ -8,8 +8,7 @@
 	</th:block>
 	<th:block layout:fragment="content">
 		<div>
-			<button type="button" id="btnFineDustStatus" onclick="fetchPage('/data/pageTxt/fineDustStatus')">미세먼지</button>
-			<button type="button" id="btnPathFinder">경로찾기</button>
+			<button type="button" id="btnPathFinder" onclick="location.href='/pathfind'">자전거 경로찾기</button>
 		</div>
 		<article>
 		
@@ -19,6 +18,7 @@
 		<div id="map" style="width:70%;height:500px;"></div>
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8342abea7f0e15b6a6509a2411a4c29f&libraries=services,drawing"></script>
 		<script type="module" th:src="@{/js/map/kakaoMap.js}"></script>
+
 	</th:block>
 	<th:block layout:fragment="script">
 		<script th:inline="javascript">
