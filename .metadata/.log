@@ -2361,9 +2361,18 @@ Binding(CTRL+SHIFT+/,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.textEditorScope,,,system)
+<<<<<<< HEAD
 
 !ENTRY org.eclipse.lsp4e 1 0 2022-08-25 13:35:31.727
 !MESSAGE [Info]	ESLint server running in node v16.14.2
 
 !ENTRY org.eclipse.lsp4e 1 0 2022-08-25 13:35:35.502
+!MESSAGE [Info]	[lspserver] Using Typescript version (bundled) 4.6.4 from path "D:\sts-4.14.1.RELEASE\plugins\org.eclipse.wildwebdeveloper_0.5.22.202205250019\node_modules\typescript\lib\tsserver.js"
+=======
+>>>>>>> parent of e8082f0 (dsaf)
+
+!ENTRY org.eclipse.lsp4e 1 0 2022-08-25 13:45:37.458
+!MESSAGE [Info]	ESLint server running in node v16.14.2
+
+!ENTRY org.eclipse.lsp4e 1 0 2022-08-25 13:45:39.641
 !MESSAGE [Info]	[lspserver] Using Typescript version (bundled) 4.6.4 from path "D:\sts-4.14.1.RELEASE\plugins\org.eclipse.wildwebdeveloper_0.5.22.202205250019\node_modules\typescript\lib\tsserver.js"
