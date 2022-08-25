@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"> 
+	  
 	<body th:fragment="main-body">
     <!-- <div class="fixed-navbar">
         <div class="pull-left">
@@ -78,7 +79,7 @@
 			<div class="main-content">
 				<div class="row row-inline-block small-spacing">
 					<div class="col-xs-12">
-						<div class="box-content">
+						<!-- <div class="box-content"> -->
 							<div class="clearfix">
 								<h4 class="box-title pull-left"></h4>
 								<!-- /.box-title -->
@@ -93,7 +94,7 @@
 							<th:block layout:fragment="content"></th:block>
 
 							<th:block layout:fragment="paging"></th:block>
-						</div>
+						<!-- /div> -->
 						<!-- /.box-content -->
 
 						<th:block layout:fragment="add-content"></th:block>
@@ -102,11 +103,14 @@
 					<!-- /.col-xs-12 -->
 				</div>
 				<!-- /.row row-inline-block small-spacing -->
+				<!-- footer -->
 				<footer class="footer">
 					<ul class="list-inline">
-						<li>2016 © NinjaAdmin.</li>
+						<li>2022 © Fresh Bicycle.</li>
 					</ul>
 				</footer>
+				
+			  
 			</div>
 			<!-- /.main-content -->
 		</div>

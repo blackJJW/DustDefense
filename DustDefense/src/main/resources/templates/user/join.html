@@ -3,14 +3,18 @@
 	<th:block layout:fragment="title">
 		<title>회원가입</title>
 	</th:block>
+	<th:block layout:fragment="add-css">
+		<link rel="stylesheet" th:href="@{/css/join.css}">
+	</th:block>
 	
 
-	<th:block layout:fragment="content">               <!-- th:onsubmit="return join(this);" -->
+	<th:block layout:fragment="content">              <!-- th:onsubmit="return join(this);" -->
 		<div class="wrapper">                          <!-- onsubmit="join(this)" -->
 			<form id="join_form" th:action="@{/user/join.do}" th:object="${join}" method="post" th:onsubmit="return join(this);">
 		        <!-- <div th:replace="form_errors :: formErrorsFragment"></div> -->
 		        <div class="mb-3">
 		            <label for="id" class="form-label">사용자ID</label> <!-- class="form-control" -->
+		            <br>
 		            <input type="text" th:field="*{id}" class="id_input" id="duplicate-id"
 		            placeholder = "영문 or 숫자 조합의 6자리이상 14자리 이하 ">
 		            <span class="id_input_re_1">사용 가능한 아이디입니다.</span>
@@ -20,12 +24,14 @@
 		        </div>
 		        <div class="mb-3">
 		            <label for="password" class="form-label">비밀번호</label>
+		            <br>
 		            <input type="password" th:field="*{password}" class="pw_input"
 		            placeholder = "영문 or 숫자 조합의 6자리이상 14자리 이하 ">
 		            <span class="final_pw_ck">비밀번호를 입력해주세요.</span>
 		        </div>
 		        <div class="mb-3">
 		            <label for="password" class="form-label">비밀번호 확인</label>
+		            <br>
 		            <input type="password" class="pwck_input">
 		            <span class="final_pwck_ck">비밀번호 확인을 입력해주세요.</span>
 		            <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
@@ -33,6 +39,7 @@
 		        </div>
 		        <div class="mb-3">
 		            <label for="name" class="form-label">이름</label>
+		            <br>
 		            <input type="text" th:field="*{name}" class="name_input"
 		            placeholder = "한글 2자리이상 5자리이하 또는 영문 2자리이상 12자리이하 ">
 		            <span class="final_name_ck">이름을 입력해주세요.</span>
@@ -44,6 +51,7 @@
 		        </div> -->
 		        <div class="mb-3">
 		            <label for="nickname" class="form-label">닉네임</label>
+		            <br>
 		            <input type="text" th:field="*{nickname}" class="nickname_input" 
 		            id="duplicate-nickname" placeholder ="한글 or 영문 or 숫자 조합의  2자리이상 12자리이하" >
 		            <span class="nickname_input_re_1">사용 가능한 닉네임입니다.</span>
@@ -52,6 +60,7 @@
 		        </div>
 		        <div class="mb-3">
 		            <label for="email" class="form-label">이메일</label>
+		            <br>
 		            <input type="email" th:field="*{email}" class="email_input" id="email-auth">
 		            <span class="final_email_ck">이메일을 입력해주세요.</span>
 		            <span class="mail_input_box_warn"></span>
@@ -70,6 +79,7 @@
 		        
 		        <div class="mb-3">
 		            <label for="password_question_code" class="form-label">비밀번호찾기질문</label>
+		            <br>
 		            <select th:field="*{passwordQuestionCode}" class="pwqc_input">
 		            	<option value="00000">==비밀번호찾기질문선택==</option>
 		            	<option th:each="passwordQuestionCode : ${passwordQuestionCodes}" th:value="${passwordQuestionCode.code}"
@@ -79,6 +89,7 @@
 		        </div>
 		        <div class="mb-3">
 		            <label for="password_question_Answer" class="form-label">비밀번호찾기질문의 답</label>
+		            <br>
 		            <input type="text" th:field="*{passwordQuestionAnswer}" class="pwqc_Answer_input"
 		            placeholder ="한글, 영문 1자리 이상">
 		            <span class="final_pwqc_Answer_ck">비밀번호 찾기 질문에 대한 답을 입력해주세요.</span>
@@ -94,8 +105,9 @@
 		            <input type="text" th:field="*{validMember}" class="form-control">
 		        </div> -->
 		        <button type="submit" class="btn btn-primary" id="join_button">회원가입</button>
+		        
 		    </form>
-		
+			
 		</div>
 	</th:block>	
 	<th:block layout:fragment="script">
