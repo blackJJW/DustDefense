@@ -16,7 +16,7 @@ h1{
         line-height: 250px;
 }
 
-#FormLogin{
+/* #FormLogin{
     display: block;
     position: absolute;
     top: 150%; left: 50%;
@@ -24,7 +24,7 @@ h1{
     border-top: 8px solid #13be46;
     border-radius: 5px;
     box-shadow: 0 0px 70px rgba(0, 0, 0, 0.1);
-}
+} */
 
 
 #txtuserid, #txtpassword{

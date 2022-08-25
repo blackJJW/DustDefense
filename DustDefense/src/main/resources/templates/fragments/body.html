@@ -15,9 +15,9 @@
 		      <img id="img" src ="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/368px-Google_2015_logo.svg.png" width = "150px" height="45px"/>
 		      </div> 
 		      <div class="text-end">
-		        <button type="button" class="btn btn-outline-primary">로그인</button>
-		        <button type="button" class="btn btn-outline-primary">회원가입</button>
-		        <button type="button" class="btn btn-outline-primary">마이페이지</button>
+		        <button type="button" class="btn btn-outline-primary" onclick="location.href='/login'">로그인</button>
+		        <button type="button" class="btn btn-outline-primary" onclick="location.href='user/join.do'">회원가입</button>
+		        <button type="button" class="btn btn-outline-primary" onclick="location.href='user/mypage.do'">마이페이지</button>
 		      </div>
 		      <!-- <ul class="nav justify-content-center">
 		        <li><a href="#" class="nav-link px-2 link-dark">one</a></li>
@@ -49,7 +49,7 @@
 		          <a class="nav-link" href="#">정보</a>
 		        </li>
 		        <li class="nav-item dropdown">
-		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		          <a class="nav-link dropdown-toggle" onclick="location.href='/post/list.do'" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		            커뮤니티
 		          </a>
 		          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -61,8 +61,8 @@
 		        <!-- <li class="nav-item">
 		          <a class="nav-link" href="#">로그인</a>
 		        </li> -->
-		        <li class="nav-item">
-		        	<!-- 현재 board/가 디폴트로 들어가고 있기 때문에 /user/join.do로 해줘야 한다. -->
+		        <!-- <li class="nav-item">
+		        	현재 board/가 디폴트로 들어가고 있기 때문에 /user/join.do로 해줘야 한다.
 					<a class="nav-link" href="#">로그인</a>
 				</li>
 		        <li class="nav-item">
@@ -70,7 +70,7 @@
 		        </li>
 		        <li class="nav-item">
 		          <a th:href="@{/user/mypage.do}" class="nav-link" >마이페이지</a>
-		        </li>
+		        </li> -->
 		      </ul>
 		    </div>
 		  </div>
