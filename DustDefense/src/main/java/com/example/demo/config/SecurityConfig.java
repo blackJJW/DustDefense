@@ -33,7 +33,7 @@ public class SecurityConfig{
 		
 		http.authorizeHttpRequests()
 			.antMatchers("/", "/sample/all").permitAll()
-			.antMatchers("/sample/member", "/user/mypage.do").hasAnyRole("USER", "ADMIN")
+			.antMatchers("/sample/member").hasAnyRole("USER", "ADMIN")
 			.antMatchers("/sample/admin").hasRole("ADMIN");
 		
 		http.formLogin()
@@ -44,7 +44,9 @@ public class SecurityConfig{
 			.permitAll();
 		
 		http.csrf().disable();
-		http.logout();
+		http.logout()
+		 	.logoutSuccessUrl("/")
+		 	.invalidateHttpSession(true);
 		
 		return http.build();
 	}
