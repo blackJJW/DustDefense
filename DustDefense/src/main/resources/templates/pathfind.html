@@ -3,6 +3,9 @@
 	<th:block layout:fragment="title">
 			<title>메인페이지</title>
 	</th:block>
+	<th:block layout:fragment="add-css">
+		<link rel="stylesheet" th:href="@{/css/kakaoMaps.css}">
+	</th:block>
 	<th:block layout:fragment="content">
 		<div>
 			<button type="button" id="btnFineDustStatus" onclick="location.href='/'">미세먼지 현황</button>
@@ -15,23 +18,26 @@
 		
 			<div id="mapSidebar" style="float:left">
 				<div id="trafficinfo">
-					<p>실시간 교통 정보</p>
+					<span class="txt">실시간 교통 정보</span>
+					<br>
+					<!-- <input type="checkbox" checked data-toggle="toggle" data-onstyle="success"> -->
 					<input type="checkbox" id="trafficInfo">
 					<label for="trafficInfo"></label>
 				</div>
 								
 				<div>
-					<span>키워드 : </span> <input type="text" name="keyword" id="keyword" placeholder="키워드, 주소 등을 입력">
+					<span class="txt">키워드 : </span> <input type="text" name="keyword" id="keyword" placeholder="키워드, 주소 등을 입력">
+					<br>
 					<button class="pathFinder" type="button" id="btnSearchKeyword">검색</button>
 					<br><br>
 					
 				</div>
 				
 				<div>
-					<span>출발지 : </span>
+					<span class="txt">출발지 : </span>
 					<div id="startAddr"></div>
 					<br>
-					<span>목적지 : </span>
+					<span class="txt">목적지 : </span>
 					<div id="endAddr"></div>
 				</div>
 				<br><br>
@@ -41,11 +47,11 @@
 				</div>
 				
 				<div>
-					<span>거리 : </span><span id="distance"></span>
+					<span class="txt">거리 : </span><span id="distance"></span>
 					<br>
-					<span>예상시간 : </span><span id="duration"></span>
+					<span class="txt">예상시간 : </span><span id="duration"></span>
 					<br>
-					<span>예상 흡입량 : </span><span id="inhalePm10"></span>
+					<span class="txt">예상 흡입량 : </span><span id="inhalePm10"></span>
 				</div>
 			</div>
 		</div>

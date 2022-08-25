@@ -58,7 +58,7 @@ public class PostController {
     
  // 기존 게시글 수정
     @PostMapping("/post/update.do")
-    public String updatePost(@RequestParam final PostRequest params,
+    public String updatePost(final PostRequest params,
                              @RequestParam final Map<String, Object> queryParams,
                              Model model) {
 

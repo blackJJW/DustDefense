@@ -243,3 +243,17 @@ h1{
 .form-group .form-control.file_list a {display: block;}
 .form-group .form-control.file_list button {width: 20px; height: 20px; margin-left: 3px; padding: 0; line-height: 20px;}
 .notice-list button {position: absolute; right: 15px; bottom: 5px;}
+
+#email-button{
+	width: 230px;
+    height: 45px;
+    font-size: 17px;
+    margin-top: 10px;
+    color: #fff;
+    background-color: #13be46;
+    border: none;
+    border-radius: 3px;
+    outline: 0;
+    cursor: pointer;
+    transition: 0.3s ease;
+}

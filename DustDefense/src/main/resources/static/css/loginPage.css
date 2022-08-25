@@ -143,5 +143,20 @@ input[type=submit]{
     font-size: 14pt;
     margin-top:100px;
 }
-  
-
+/* 아이디 찾기 버튼 친구들 간격 동일*/
+/* .button-group{ 
+	margin: 0;
+    padding: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+} */
+/* 아이디 찾기 버튼 친구들 오른쪽에 몰아두기*/
+.button-group{
+	float: right;
+}
