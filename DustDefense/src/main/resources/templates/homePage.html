@@ -1,19 +1,33 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Home page</title>
-</head>
-<body>
-	<h1> 메인 홈 화면 </h1>
-	
-	<div>
-		<button onclick="location.href='sample/all'"> sample.all </button>
-		<button onclick="location.href='sample/member'"> sample.member </button>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
+	<th:block layout:fragment="title">
+			<title>메인페이지</title>
+	</th:block>
+	<th:block layout:fragment="add-css">
+		<link rel="stylesheet" th:href="@{/css/kakaoMaps.css}">
+	</th:block>
+	<th:block layout:fragment="content">
+		<div>
+			<button type="button" id="btnFineDustStatus" onclick="fetchPage('/data/pageTxt/fineDustStatus')">미세먼지</button>
+			<button type="button" id="btnPathFinder">경로찾기</button>
+		</div>
+		<article>
 		
-	</div>
-	<div>
-		<button onclick="location.href='/login'"> login </button>
-	</div>
-</body>
-</html>
+		</article>
+		<h1>미세먼지 현황</h1>
+		<!-- 지도를 표시할 div 입니다 -->
+		<div id="map" style="width:70%;height:500px;"></div>
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8342abea7f0e15b6a6509a2411a4c29f&libraries=services,drawing"></script>
+		<script type="module" th:src="@{/js/map/kakaoMap.js}"></script>
+	</th:block>
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+			function fetchPage(name){
+				fetch(name).then(function(response){
+					response.text().then(function(text){
+						document.querySelector('article').innerHTML = text;
+					})
+				});
+			}
+		</script>
+	</th:block>

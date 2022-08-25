@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Home page</title>
-</head>
-<body>
-	<h1> 메인 홈 화면 </h1>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/basic}"> 
+	<th:block layout:fragment="title">
+		<title>메인</title>
+	</th:block>
 	
-	<div>
-		<button onclick="location.href='sample/all'"> sample.all </button>
-		<button onclick="location.href='sample/member'"> sample.member </button>
-	</div>
-	<div>
-		<button onclick="location.href='/login'"> login </button>
-	</div>
-</body>
+	<th:block layout:fragment="content">
+		<div class="map_wrap">
+    		<div id="map" style="width:70%;height:100%;position:relative;overflow:hidden;"></div>
+		</div>
+	
+	
+	<script type="text/javascript" th:src="@{//dapi.kakao.com/v2/maps/sdk.js?appkey=8342abea7f0e15b6a6509a2411a4c29f&libraries=services,clusterer,drawing}"></script>
+	
+	<script type="text/javascript" th:src="@{/js/map/kakoTest.js}"></script>
+	
+	
+	</th:block>
 </html>

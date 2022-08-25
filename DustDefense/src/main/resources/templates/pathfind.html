@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
+	<th:block layout:fragment="title">
+			<title>메인페이지</title>
+	</th:block>
+	<th:block layout:fragment="content">
+		<div>
+			<button type="button" id="btnFineDustStatus">미세먼지</button>
+			<button type="button" id="btnPathFinder">경로찾기</button>
+		</div>
+
+		<h1>자전거 경로</h1>
+		<div id="wrapper">
+			<!-- 지도를 표시할 div 입니다 -->
+			<div id="map" style="width:70%;height:500px;float:left;margin:20px"></div>
+		
+			<div id="mapSidebar" style="float:left">
+				<div id="trafficinfo">
+					<p>실시간 교통 정보</p>
+					<input type="checkbox" id="trafficInfo">
+					<label for="trafficInfo"></label>
+				</div>
+								
+				<div>
+					<span>키워드 : </span> <input type="text" name="keyword" id="keyword" placeholder="키워드, 주소 등을 입력">
+					<button class="pathFinder" type="button" id="btnSearchKeyword">검색</button>
+					<br><br>
+					
+				</div>
+				
+				<div>
+					<span>출발지 : </span>
+					<div id="startAddr"></div>
+					<br>
+					<span>목적지 : </span>
+					<div id="endAddr"></div>
+				</div>
+				<br><br>
+				<div>
+					<button class="pathFinder" type="button" id="btnPathFinder">경로찾기</button>
+					<button class="pathFinder" type="button" id="btnDisablePathFinder">경로해제</button>
+				</div>
+				
+				<div>
+					<span>거리 : </span><span id="distance"></span>
+					<br>
+					<span>예상시간 : </span><span id="duration"></span>
+					<br>
+					<span>예상 흡입량 : </span><span id="inhalePm10"></span>
+				</div>
+			</div>
+		</div>
+	
+		
+		<link th:href="@{/css/function.css}" rel="stylesheet">
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8342abea7f0e15b6a6509a2411a4c29f&libraries=services,clusterer,drawing"></script>
+		<script th:src="@{/js/map/pathFind.js}"></script>
+		<script>
+			function fetchPage(name){
+				fetch(name).then(function(response){
+					response.text().then(function(text){
+						document.querySelector('article').innerHTML = text;
+					})
+				});
+			}
+		</script>
+	</th:block>
+</html>
