@@ -467,11 +467,11 @@ async function getAveragePollution(arr){
 	console.log(averageA);
 	console.log(dur1);
 	
-	var oV = (315 / 3600) * dur1;
-	var percentVA = ((oV / 45) * 100).toFixed(2);
+	var oV = (averagePollution * 0.07 * (dur1 / 60)).toFixed(2);
+	var percentVA = (((oV / Math.pow(10, 3)) / 45) * 100).toFixed(2);
 	
-	inhalePm10Val.innerHTML = oV + ' ㎍/㎥' +
-							'<div>WHO 1일 권장량 45 ㎍/㎥ 의 약 ' + percentVA + '% 를 차지 합니다.</div>' ;
+	inhalePm10Val.innerHTML = oV + ' ㎍' +
+							'<div>WHO 1일 권장량 45 ㎍/㎥ 의 약 ' + percentVA + '% 를 차지 합니다.</div>';
 	
 	regionArr = [];
 }
